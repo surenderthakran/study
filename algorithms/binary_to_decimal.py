@@ -1,7 +1,5 @@
 #!/usr/bin/env python2
 
-# convert binary to decimal
-
 def convertInteger(binary):
   """Converts a real integer number's representation from binary to decimal.
 
@@ -9,7 +7,7 @@ def convertInteger(binary):
     binary: integer binary number as int data type.
 
   returns:
-    integer represenation of the binary.
+    integer representation of the binary.
   """
   decimal = 0
   position = 0
