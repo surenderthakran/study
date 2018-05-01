@@ -1,5 +1,9 @@
 #!/usr/bin/env python2
 
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 def convertInteger(binary):
   """Converts a real integer number's representation from binary to decimal.
 
@@ -19,4 +23,4 @@ def convertInteger(binary):
     position += 1
   return decimal
 
-print convertInteger(110110)
+print(convertInteger(110110))
