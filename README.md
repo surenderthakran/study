@@ -1,3 +1,3 @@
 ## Study
 
-### [Algorithms](http://surenderthakran.com/algorithms/README.md)
+### [Algorithms](https://github.com/surenderthakran/study/blob/master/algorithms/README.md)
