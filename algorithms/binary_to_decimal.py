@@ -5,13 +5,13 @@ from __future__ import division
 from __future__ import print_function
 
 def convertInteger(binary):
-  """Converts a real integer number's representation from binary to decimal.
+  """Converts a integer's representation from binary to decimal.
 
   args:
-    binary: integer binary number as int data type.
+    binary: integer in binary as an int data type.
 
   returns:
-    integer representation of the binary.
+    decimal representation of the integer.
   """
   decimal = 0
   position = 0
