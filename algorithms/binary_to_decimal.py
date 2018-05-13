@@ -1,5 +1,12 @@
-# -*- coding: utf-8 -*-
 #!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
+"""
+Converts binary integers to decimals.
+
+Usage:
+$ python binary_to_decimal.py <binary_input>
+"""
 
 from __future__ import absolute_import
 from __future__ import division
@@ -7,8 +14,6 @@ from __future__ import print_function
 
 import sys
 
-class InvalidInputException(Exception):
-  """Custom exception class for invalid inputs to the program."""
 
 def convertInteger(binary_input):
   """Converts a integer's representation from binary to decimal.
@@ -24,12 +29,13 @@ def convertInteger(binary_input):
   while binary_input != 0:
     # get least significant digit
     num = binary_input % 10
-
     if num > 1:
       raise ValueError('Invalid input binary number:', binary_input)
 
     # calculate decimal value of the binary digit
     val = num * 2**position
+
+    # add digit's decimal value to the total decimal value
     decimal += val
 
     # remove least significant bit by floor division
@@ -42,11 +48,8 @@ def convertInteger(binary_input):
 
 if __name__ == '__main__':
   if len(sys.argv) < 2:
-    raise InvalidInputException('No binary input found')
+    raise ValueError('No binary input found')
 
-  try:
-    binary = int(sys.argv[1])
-  except ValueError:
-    raise InvalidInputException('Invalid binary input:', sys.argv[1])
+  binary_input = int(sys.argv[1])
 
-  print(convertInteger(int(sys.argv[1])))
+  print(convertInteger(binary_input))
