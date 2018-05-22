@@ -18,7 +18,7 @@ import sys
 def convertInteger(binary_integer):
   """Converts a integer's representation from binary to decimal.
 
-  Decimal value of a binary integer is a sum of multiples of the digit 
+  Decimal value of a binary integer is a sum of multiples of the digit
   and 2 raised to the power of position of the digit.
 
   ex: 1010 = (1 * 2 ** 3) + (0 * 2 ** 2) + (1 * 2 ** 1) + (0 * 2 ** 0)

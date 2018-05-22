@@ -34,7 +34,7 @@ def convertIntegerWithRecursion(decimal):
     binary += convertIntegerWithRecursion(decimal // 2)
 
     # add denominator of the decimal divided by 2 to the result.
-    # this step comes after the recursive call because while converting 
+    # this step comes after the recursive call because while converting
     # decimal to binary with division method the results are read backwards.
     binary += str(decimal % 2)
 
