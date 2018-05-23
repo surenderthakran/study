@@ -14,15 +14,15 @@ from __future__ import print_function
 import sys
 
 
-def convertIntegerWithRecursion(decimal):
+def convert_integer_with_recursion(decimal):
   """Converts an integer's representation from decimal to binary.
 
   It uses the division method to convert using recursive calls to itself.
 
-  args:
+  Args:
     decimal: integer decimal number.
 
-  returns:
+  Returns:
     binary integer as string.
   """
   binary = ''
@@ -31,7 +31,7 @@ def convertIntegerWithRecursion(decimal):
   if decimal > 1:
 
     # call the current function recursively with the floor division result.
-    binary += convertIntegerWithRecursion(decimal // 2)
+    binary += convert_integer_with_recursion(decimal // 2)
 
     # add denominator of the decimal divided by 2 to the result.
     # this step comes after the recursive call because while converting
@@ -45,15 +45,15 @@ def convertIntegerWithRecursion(decimal):
     return '1'
 
 
-def convertIntegerWithLoops(decimal):
+def convert_integer_with_loops(decimal):
   """Converts a decimal integer to binary.
 
   It uses the division method to convert using while loops.
 
-  args:
+  Args:
     decimal: integer decimal number
 
-  returns:
+  Returns:
     binary integer as string
   """
   result = ''
@@ -68,7 +68,7 @@ def convertIntegerWithLoops(decimal):
     result += str(val)
 
     # update the decimal value to the floor division value for next iteration.
-    decimal = decimal // 2
+    decimal //= 2
 
   # when the decimal becomes less than 2, append it to the result string.
   result += str(decimal)
@@ -92,28 +92,29 @@ def convertIntegerWithLoops(decimal):
   # convert the list back to string.
   return ''.join(arr)
 
-def convertFraction(fraction):
+
+def convert_fraction(fraction):
   """Converts the fractional part of a decimal number to binary.
 
   We convert a decimal fraction to binary by iteratively multiplying it by 2
   and appending the integer part to the result after taking it out of the
   multiplication result.
-  The iteration continues until the decimal becomes 1.0 or until we have 
-  iterated for a sufficient number of times since not all numbers will lead 
+  The iteration continues until the decimal becomes 1.0 or until we have
+  iterated for a sufficient number of times since not all numbers will lead
   to 1.0 after continuous multiplication.
 
-  args:
+  Args:
     fraction: a float decimal number.
 
-  returns:
+  Returns:
     fractional part of the decimal as string.
   """
   result = ''
   iteration = 0
   while fraction != 1.0 and iteration < 5:
-    fraction = fraction * 2
+    fraction *= 2
     result += str(int(fraction))
-    fraction = fraction - int(fraction)
+    fraction -= int(fraction)
     iteration += 1
 
   return result
@@ -130,14 +131,16 @@ if __name__ == '__main__':
   arg_split = arg.split('.')
 
   # convert decimal to binary using loops.
-  result1 = convertIntegerWithLoops(int(arg_split[0])) if arg_split[0] else '0'
+  result1 = convert_integer_with_loops(
+      int(arg_split[0])) if arg_split[0] else '0'
   if arg_split[1]:
-    result1 += '.' + convertFraction(float('0.' + arg_split[1]))
+    result1 += '.' + convert_fraction(float('0.' + arg_split[1]))
   print(result1)
 
   # convert decimal to binary using recursion.
-  result2 = convertIntegerWithRecursion(
+  result2 = convert_integer_with_recursion(
       int(arg_split[0])) if arg_split[0] else '0'
   if arg_split[1]:
-    result2 += '.' + convertFraction(float('0.' + arg_split[1]))
+    result2 += '.' + convert_fraction(float('0.' + arg_split[1]))
   print(result2)
+

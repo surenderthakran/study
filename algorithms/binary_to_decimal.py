@@ -15,7 +15,7 @@ from __future__ import print_function
 import sys
 
 
-def convertInteger(binary_integer):
+def convert_integer(binary_integer):
   """Converts a integer's representation from binary to decimal.
 
   Decimal value of a binary integer is a sum of multiples of the digit
@@ -23,13 +23,13 @@ def convertInteger(binary_integer):
 
   ex: 1010 = (1 * 2 ** 3) + (0 * 2 ** 2) + (1 * 2 ** 1) + (0 * 2 ** 0)
 
-  args:
+  Args:
     binary_integer: integer in binary as an int data type.
 
-  returns:
+  Returns:
     decimal representation of the integer.
 
-  raises:
+  Raises:
     ValueError: for invalid binary numbers.
 
   """
@@ -48,14 +48,15 @@ def convertInteger(binary_integer):
     decimal += val
 
     # remove least significant bit by floor division
-    binary_integer = binary_integer//10
+    binary_integer //= 10
 
     # increment position by 1
     position += 1
 
   return decimal
 
-def convertFraction(binary_fraction):
+
+def convert_fraction(binary_fraction):
   """Converts a binary's fractional part to decimal.
 
   Decimal value of the binary fractio is a sun of multiple of the digit and
@@ -63,13 +64,13 @@ def convertFraction(binary_fraction):
 
   ex: 0.1010 = (1 * 2 ** -1) + (8 * 2 ** -2) + (1 * 2 ** -3) + (0 * 2 ** -4)
 
-  args:
+  Args:
     binary_fraction: binary fractional number as string.
 
-  returns:
+  Returns:
     decimal value of the binary fraction as integer.
 
-  raises:
+  Raises:
     ValueError: if the binary fraction is invalid.
   """
   fraction = binary_fraction
@@ -113,9 +114,10 @@ if __name__ == '__main__':
   binary_split = arg.split('.')
 
   # convert integer part to decimal.
-  result = convertInteger(int(binary_split[0])) if binary_split[0] else 0
+  result = convert_integer(int(binary_split[0])) if binary_split[0] else 0
 
   # convert fractional part to decimal and add to the integer result.
-  result += convertFraction(binary_split[1]) if binary_split[1] else 0
+  result += convert_fraction(binary_split[1]) if binary_split[1] else 0
 
   print('Decimal:', result)
+
