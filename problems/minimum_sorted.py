@@ -39,7 +39,7 @@ def find_minimum_in_rotated_sorted_list(arr):
     elif arr[mid] < arr[low]:
       high = mid - 1
     # If the second half has the reset point.
-    elif arr[high] < arr[mid]:
+    else:
       low = mid + 1
 
   return arr[low]

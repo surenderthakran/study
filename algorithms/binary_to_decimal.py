@@ -62,7 +62,7 @@ def convert_fraction(binary_fraction):
   Decimal value of the binary fractio is a sun of multiple of the digit and
   2 raise to the power of negative position of the digit.
 
-  ex: 0.1010 = (1 * 2 ** -1) + (8 * 2 ** -2) + (1 * 2 ** -3) + (0 * 2 ** -4)
+  ex: 0.1010 = (1 * 2 ** -1) + (0 * 2 ** -2) + (1 * 2 ** -3) + (0 * 2 ** -4)
 
   Args:
     binary_fraction: binary fractional number as string.
