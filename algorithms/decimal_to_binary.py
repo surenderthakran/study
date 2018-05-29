@@ -75,22 +75,8 @@ def convert_integer_with_loops(decimal):
 
   # since in the division method the denominators are read in the reverse order
   # of their generation.
-  # reverse the result string by swapping numbers from both ends.
-
-  # convert the result string to list for reversal.
-  arr = list(result)
-  start = 0
-  end = len(arr) - 1
-
-  # iterate until the end value becomes smaller or equal to the start value.
-  while start < end:
-    # swap start and end values in the list.
-    arr[start], arr[end] = arr[end], arr[start]
-    start += 1
-    end -= 1
-
-  # convert the list back to string.
-  return ''.join(arr)
+  # reverse the result string.
+  return result[::-1]
 
 
 def convert_fraction(fraction):
@@ -111,10 +97,19 @@ def convert_fraction(fraction):
   """
   result = ''
   iteration = 0
+
+  # iterate until the fraction becomes 1.0 or we have converted upto 5 decimal
+  # points.
   while fraction != 1.0 and iteration < 5:
+    # multiply fraction with the base, 2.
     fraction *= 2
+
+    # append integer part of the fraction to the result.
     result += str(int(fraction))
+
+    # subtract integer part of the fraction.
     fraction -= int(fraction)
+
     iteration += 1
 
   return result
