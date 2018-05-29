@@ -81,7 +81,13 @@ def get_angle_between_hands(hours, minutes):
 
   # the angle betwen the hour and the minute hand is the absolute value of
   # difference between their angles with the 12th mark.
-  return abs(minute_hands_angle_with_root - hour_hands_angle_with_root)
+  angle = abs(minute_hands_angle_with_root - hour_hands_angle_with_root)
+
+  # convert reflex angle to less than straight angle.
+  if angle > 180:
+    angle -= 180
+
+  return angle
 
 if __name__ == '__main__':
   # check if time has been provided.
