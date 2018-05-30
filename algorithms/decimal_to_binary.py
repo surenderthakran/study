@@ -5,6 +5,16 @@
 
 Usage:
 $ python decimal_to_binary.py <decimal_input>
+
+Example:
+$ python decimal_to_binary.py 1901
+11101101101
+
+$ python decimal_to_binary.py 3.75
+11.11
+
+$ python decimal_to_binary.py 0.6640625
+0.10101
 """
 
 from __future__ import absolute_import
@@ -40,9 +50,8 @@ def convert_integer_with_recursion(decimal):
 
     return str(binary)
   else:
-    # this could never be '0' since this will become the most significant bit
-    # which can never be zero.
-    return '1'
+    # since binaries 0 and 1 have the same value in decimals.
+    return str(decimal)
 
 
 def convert_integer_with_loops(decimal):
@@ -100,7 +109,7 @@ def convert_fraction(fraction):
 
   # iterate until the fraction becomes 1.0 or we have converted upto 5 decimal
   # points.
-  while fraction != 1.0 and iteration < 5:
+  while fraction != 1.0 and fraction != 0.0 and iteration < 5:
     # multiply fraction with the base, 2.
     fraction *= 2
 
@@ -128,14 +137,14 @@ if __name__ == '__main__':
   # convert decimal to binary using loops.
   result1 = convert_integer_with_loops(
       int(arg_split[0])) if arg_split[0] else '0'
-  if arg_split[1]:
+  if arg_split[1] and arg_split[1] != '0':
     result1 += '.' + convert_fraction(float('0.' + arg_split[1]))
   print(result1)
 
   # convert decimal to binary using recursion.
   result2 = convert_integer_with_recursion(
       int(arg_split[0])) if arg_split[0] else '0'
-  if arg_split[1]:
+  if arg_split[1] and arg_split[1] != '0':
     result2 += '.' + convert_fraction(float('0.' + arg_split[1]))
   print(result2)
 
