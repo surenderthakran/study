@@ -6,6 +6,15 @@
 Usage:
 $ python binary_to_decimal.py <binary_input>
 
+Example:
+$ python binary_to_decimal.py 11.11
+Decimal: 3.75
+
+$ python binary_to_decimal.py 11101101101
+Decimal: 1901.0
+
+$ python binary_to_decimal.py .1010101
+Decimal: 0.6640625
 """
 
 from __future__ import absolute_import
@@ -90,7 +99,7 @@ def convert_fraction(binary_fraction):
     # get decimal value of the digit.
     val = num * (1 / 2 ** position)
 
-    # add decimal value of the digit to the tial decimal value.
+    # add decimal value of the digit to the initial decimal value.
     decimal += val
 
     # remove the first digit from the binary string.
