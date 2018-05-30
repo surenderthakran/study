@@ -6,8 +6,24 @@
 Usage:
 $ python clock_angle.py <time as a floating number>
 
-ex:
-$ python clock_angle.py 09.34
+Example:
+$ python clock_angle.py 10.00
+60.0
+
+$ python clock_angle.py 10.15
+142.5
+
+$ python clock_angle.py 10.30
+135.0
+
+$ python clock_angle.py 12.00
+0
+
+$ python clock_angle.py 12.30
+165.0
+
+$ python clock_angle.py 6.30
+15.0
 """
 
 from __future__ import absolute_import
@@ -72,7 +88,6 @@ def get_angle_between_hands(hours, minutes):
   # calculate minute hand's angle with the 12th mark.
   # angle between two consecutive minute marks is 6 degrees in a clock.
   minute_hands_angle_with_root = minutes * 6
-
   # calculate hour hand's angle with the 12th mark.
   # angle between two consecutive hour marks is 30 degrees in a clock.
   # with each mark increase by the minute hand, the hour hand moves by
@@ -85,7 +100,7 @@ def get_angle_between_hands(hours, minutes):
 
   # convert reflex angle to less than straight angle.
   if angle > 180:
-    angle -= 180
+    angle = abs(angle - 360)
 
   return angle
 
