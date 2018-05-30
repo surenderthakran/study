@@ -10,4 +10,4 @@
 
 #### 1. [Calculate angle between the hour and minute hand of a clock for a given time.](problems/clock_angle.py)
 #### 2. [Find the smallest element in a rotated sorted array.](problems/minimum_rotated_sorted.py)
-
+#### 3. [Verify if a ransom note is from a given magazine page.](problems/ransom_note.py)
