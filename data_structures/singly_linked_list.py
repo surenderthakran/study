@@ -58,6 +58,25 @@ class SingleLinkedList:
 
     return -1
 
+  def insert(self, data, index):
+    if index == 0:
+      self.prepend(data)
+
+    current_index = 0
+    current = self.head
+
+    while current:
+      if current_index == index - 1:
+        new_node = Node(data)
+        new_node.next = current.next
+        current.next = new_node
+        return True
+
+      current = current.next
+      current_index += 1
+
+    return False
+
 if __name__ == '__main__':
   arr = [1, 3, 6, 8, 0]
 
@@ -73,3 +92,13 @@ if __name__ == '__main__':
   print(linked_list)
 
   print(linked_list.find(6))
+
+  print(linked_list.find(7))
+
+  linked_list.insert(2, 2)
+
+  print(linked_list)
+
+  linked_list.insert(4, 0)
+
+  print(linked_list)
