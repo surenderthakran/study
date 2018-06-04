@@ -6,6 +6,10 @@
 #### 2. [Decimal To Binary](algorithms/decimal_to_binary.py)
 #### 3. [Binary Search](algorithms/binary_search.py)
 
+### Data Structures
+
+#### 1. [(Difficulty: 2) Singly Linked List](data_structures/singly_linked_list.py)
+
 ### Problems
 
 #### 1. [Calculate angle between the hour and minute hand of a clock for a given time.](problems/clock_angle.py)
