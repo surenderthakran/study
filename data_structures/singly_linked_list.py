@@ -150,7 +150,7 @@ if __name__ == '__main__':
   for element in arr:
     linked_list.append(element)
 
-  print('After appeding:', linked_list)
+  print('After appending:', linked_list)
 
   linked_list.prepend(5)
   print('After prepending', linked_list)
