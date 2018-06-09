@@ -95,9 +95,6 @@ class SingleLinkedList(object):
     Args:
       data: element for the new node.
       index: position of the new node.
-
-    Returns:
-      True if the new node is inserted else False.
     """
     if index == 0:
       self.prepend(data)
@@ -107,18 +104,16 @@ class SingleLinkedList(object):
     current = self.head
     previous = None
 
-    while current:
+    while current or previous:
       if current_index == index:
         new_node = Node(data)
         new_node.next = current
         previous.next = new_node
-        return True
+        break
 
       previous = current
       current = current.next
       current_index += 1
-
-    return False
 
   def delete(self, index):
     """Deletes the node at the given index.
@@ -143,7 +138,7 @@ class SingleLinkedList(object):
       current_index += 1
 
 if __name__ == '__main__':
-  arr = [1, 3, 6, 8, 0]
+  arr = [3, 5, 7]
 
   linked_list = SingleLinkedList()
 
@@ -152,20 +147,27 @@ if __name__ == '__main__':
 
   print('After appending:', linked_list)
 
-  linked_list.prepend(5)
+  linked_list.prepend(1)
   print('After prepending', linked_list)
 
-  print('Find 6:', linked_list.find(6))
+  print('Find 1:', linked_list.find(1))
   print('Find 7:', linked_list.find(7))
+  print('Find 9:', linked_list.find(9))
 
-  linked_list.insert(2, 2)
+  linked_list.insert(2, 1)
   print('After inserting:', linked_list)
 
-  linked_list.insert(4, 0)
+  linked_list.insert(0, 0)
   print('After inserting:', linked_list)
 
-  linked_list.delete(1)
+  linked_list.insert(9, 6)
+  print('After inserting:', linked_list)
+
+  linked_list.delete(2)
   print('After deleting:', linked_list)
 
   linked_list.delete(0)
+  print('After deleting:', linked_list)
+
+  linked_list.delete(4)
   print('After deleting:', linked_list)
