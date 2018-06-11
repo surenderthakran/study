@@ -11,6 +11,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+
 class Node(object):
   """Class to implement a node in a double linked list."""
 
@@ -152,11 +153,11 @@ class DoublyLinkedList(object):
     return
 
 if __name__ == '__main__':
-  list = [3,5,7,9]
+  arr = [3, 5, 7, 9]
 
   linked_list = DoublyLinkedList()
 
-  for ele in list:
+  for ele in arr:
     linked_list.append(ele)
   print('After append:', linked_list)
 

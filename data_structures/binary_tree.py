@@ -1,6 +1,12 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
+"""Implement a binary tree.
+
+Usage:
+$ python binary_tree.py
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
