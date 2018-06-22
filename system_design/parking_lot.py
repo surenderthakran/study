@@ -160,7 +160,7 @@ class ParkingLot(object):
     """
     # Return if a vehicle with the given license plate number is already
     # parked.
-    if type(self).vehicles.has_key(license_plate):
+    if license_plate in type(self).vehicles:
       return False
 
     vehicle = Vehicle(license_plate, size)
@@ -183,6 +183,9 @@ class ParkingLot(object):
 
     Args:
       license_plate: License plate number of the vehicle to be exited.
+
+    Returns:
+      True if the vehicle is exited else False.
     """
     # Check if the vehicle with license plate number is parked in the lot.
     vehicle = type(self).vehicles.pop(license_plate, None)
@@ -214,7 +217,7 @@ if __name__ == '__main__':
   parking_lot = ParkingLot()
 
   # Randomly park and exit vehicles.
-  for i in range(500):
+  for _ in range(500):
     if random.randint(0, 1) == 0:
       # Exit vehicle.
       exited = parking_lot.ExitVehicle(str(random.randint(1, 50)))
