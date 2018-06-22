@@ -34,8 +34,8 @@ class BinaryTree(object):
   def preorder(self, current):
     """Traverses and prints nodes of a binary tree in preorder.
 
-    In preorder traversal, the parent's node is processed before the left and
-    the right child.
+    Preorder traversal is a type of depth first traversal where the parent's
+    node is processed before the left and the right child.
 
     Args:
       current: root node of the binary tree or sub-tree.
@@ -51,8 +51,8 @@ class BinaryTree(object):
   def inorder(self, current):
     """Traverses and prints the nodes of a binary tree in inorder.
 
-    In inorder traversal, left child of a parent node is processed before the
-    node and it's right child after that.
+    Inorder traversal is a type of depth first traversal where the left child
+    of a parent node is processed before the node and then the right child.
 
     Args:
       current: root node of the binary tree or sub-tree.
@@ -68,8 +68,8 @@ class BinaryTree(object):
   def postorder(self, current):
     """Traverses and prints the nodes of a binary tree in postorder.
 
-    In postorder traversal, the node is processed after processing its left
-    and the right child.
+    Postorder traversal is a type of depth first traversal where the node is
+    processed after processing first its left and then right child.
 
     Args:
       current: root node of the binary tree or sub-tree.
@@ -138,7 +138,7 @@ class BinaryTree(object):
     """Determines if a binary tree is a full tree.
 
     A binary tree is considered to be a binary tree if all its nodes have
-    exactly 2 children of no children at all.
+    exactly 2 children or no children at all.
 
     Args:
       current: root node of the binary tree or sub-tree.
