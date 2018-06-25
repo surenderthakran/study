@@ -12,32 +12,97 @@ class Node(object):
     self._left = None
     self._right = None
 
+  def __repr__(self):
+    return repr(self.data)
+
   def Left(self):
     return self._left
 
-  def SetLeft(self, data):
-    if data > self.data:
+  def SetLeft(self, node):
+    if node.data > self.data:
       raise ValueError(
-          'Left child\'s value %d cannot be greater than root: %d',
-          data, self.data)
+          'Left child\'s value %d cannot be greater than root: %d' %
+          (node.data, self.data))
 
-    self._left = Node(data)
+    self._left = node
 
   def Right(self):
     return self._right
 
-  def SetRight(self, data):
-    if data < self.data:
-      raise ValueError('Right child\'s value', data,
-                       'cannot be less than the root:', self.data)
+  def SetRight(self, node):
+    if node.data < self.data:
+      raise ValueError(
+          'Right child\'s value %d cannot be less than the root: %d' %
+          (node.data, self.data))
+
+    self._right = node
 
 
 class BinarySearchTree(object):
   def __init__(self):
     self.root = None
 
+  def find(self, data, current=None):
+    if not current:
+      current = self.root
+
+    if current.data == data:
+      return current
+    elif data < current.data and current.Left():
+      return self.find(data, current.Left())
+    elif current.Right():
+      return self.find(data, current.Right())
+    else:
+      return None
+
+  def is_binary_search_tree(self, current=None):
+    if not current:
+      current = self.root
+
+    if current.Left() and current.Left().data >= current.data:
+      return False
+
+    if current.Right() and current.Right().data <= current.data:
+      return False
+
+    is_bst = True
+    if current.Left():
+      is_bst = self.is_binary_search_tree(current.Left())
+
+    if is_bst and current.Right():
+      return self.is_binary_search_tree(current.Right())
+
+    return is_bst
+
 if __name__ == '__main__':
   tree = BinarySearchTree()
   tree.root = Node(5)
 
-  tree.root.SetRight(6)
+  node_3 = Node(3)
+  tree.root.SetLeft(node_3)
+
+  node_2 = Node(2)
+  node_3.SetLeft(node_2)
+
+  node_4 = Node(4)
+  node_3.SetRight(node_4)
+
+  node_1 = Node(1)
+  node_2.SetLeft(node_1)
+
+  node_8 = Node(8)
+  tree.root.SetRight(node_8)
+
+  node_7 = Node(7)
+  node_8.SetLeft(node_7)
+
+  node_6 = Node(6)
+  node_7.SetLeft(node_6)
+
+  node_9 = Node(9)
+  node_8.SetRight(node_9)
+
+  print(tree.find(1))
+  print(tree.find(10))
+
+  assert tree.is_binary_search_tree() is True
