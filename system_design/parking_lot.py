@@ -34,6 +34,39 @@ class Size(Enum):
   XL = 4
 
 
+class Queue(object):
+  """Class to implement a basic FIFO queue."""
+
+  def __init__(self):
+    self.queue = []
+
+  def __iter__(self):
+    """Implementing the iter magic method to make Queue iterable."""
+    return iter(self.queue)
+
+  def push(self, ele):
+    """Adds an element to the queue.
+
+    Args:
+      ele: Element to add to the queue.
+    """
+    self.queue.append(ele)
+
+  def pop(self):
+    """Removes an element from the queue.
+
+    Returns:
+      The oldest element in the queue or None if the queue is empty.
+    """
+    if not self.queue:
+      return
+
+    ele = self.queue[0]
+    self.queue = self.queue[1:]
+
+    return ele
+
+
 class Vehicle(object):
   """Class to encapsulate a vehicle's properties."""
 
@@ -62,12 +95,7 @@ class ParkingLot(object):
   initialized = False
 
   # Holds instances of slots in a dict against their sizes.
-  slots = {
-      Size.S.name: [],
-      Size.M.name: [],
-      Size.L.name: [],
-      Size.XL.name: [],
-  }
+  slots = {}
 
   # Dictionary to hold objects of vehicles parked in the parking lot against
   # license plate numbers.
@@ -92,20 +120,24 @@ class ParkingLot(object):
   def _InitSlots(self):
     """Initialize parking slots.
 
-    Creates slot instances for different slot sizes and stores them as a list
-    in the class variable.
+    Creates slot instances for different slot sizes and stores them as a Queue
+    in the slots dictionary class variable against there size.
     """
+    type(self).slots[Size.S.name] = Queue()
     for i in range(50):
-      type(self).slots[Size.S.name].append(Slot(i, Size.S))
+      type(self).slots[Size.S.name].push(Slot(i, Size.S))
 
+    type(self).slots[Size.M.name] = Queue()
     for i in range(50, 100):
-      type(self).slots[Size.M.name].append(Slot(i, Size.M))
+      type(self).slots[Size.M.name].push(Slot(i, Size.M))
 
+    type(self).slots[Size.L.name] = Queue()
     for i in range(100, 150):
-      type(self).slots[Size.L.name].append(Slot(i, Size.L))
+      type(self).slots[Size.L.name].push(Slot(i, Size.L))
 
+    type(self).slots[Size.XL.name] = Queue()
     for i in range(150, 200):
-      type(self).slots[Size.XL.name].append(Slot(i, Size.XL))
+      type(self).slots[Size.XL.name].push(Slot(i, Size.XL))
 
     # Set initialized to True once initialization is complete.
     type(self).initialized = True
@@ -122,16 +154,30 @@ class ParkingLot(object):
       A Slot object or None.
     """
     current_slot_size = size
-    slots = type(self).slots[current_slot_size.name]
-    while slots:
-      for slot in slots:
-        if not slot.occupied:
-          return slot
+
+    # Fetch Queue of empty slots for the current slot size.
+    slotsQueue = type(self).slots[current_slot_size.name]
+
+    # Keep looping until a queue of slots exist.
+    while slotsQueue:
+
+      # Fetch a slot from the queue and return it.
+      slot = slotsQueue.pop()
+      if slot:
+        return slot
+
+      # If an empty slot of the required size does not exists, determine a
+      # higher slot size.
       new_slot_value = current_slot_size.value + 1
-      if Size(new_slot_value).name in self.slots:
-        slots = type(self).slots[Size(new_slot_value).name]
-        continue
-      slots = None
+
+      # If a queue of empty slots for the higher slot size doesn't exists,
+      # return None.
+      if Size(new_slot_value).name not in self.slots:
+        return
+
+      # If a queue of empty slots for the higher slot size exists, set it in a
+      # variable to loop again.
+      slotsQueue = type(self).slots[Size(new_slot_value).name]
 
   def _CalculateCharges(self, vehicle):
     """Calculates parking charges to be paid.
@@ -171,11 +217,17 @@ class ParkingLot(object):
     if not slot:
       return False
 
+    # Update slot to mark it occupied.
     slot.occupied = True
     slot.occupied_at = int(time.time())
     slot.vehicle = vehicle
+
+    # Add slot to the vehicle object.
     vehicle.slot = slot
+
+    # Add vehicle to the vehicles dictionary class variable.
     type(self).vehicles[vehicle.license_plate] = vehicle
+
     return True
 
   def ExitVehicle(self, license_plate):
@@ -192,10 +244,17 @@ class ParkingLot(object):
     if not vehicle:
       return False
 
+    # Collect parking charges.
     type(self).collection += self._CalculateCharges(vehicle)
+
+    # Mark slot as empty.
     vehicle.slot.occupied_at = None
     vehicle.slot.vehicle = None
     vehicle.slot.occupied = False
+
+    # Add slot to the appropriate empty slots Queue in the class variable.
+    type(self).slots[vehicle.slot.size.name].push(vehicle.slot)
+
     return True
 
   def DisplayStats(self):

@@ -110,17 +110,17 @@ def convert_fraction(binary_fraction):
 
   return decimal
 
-if __name__ == '__main__':
-  if len(sys.argv) < 2:
-    raise ValueError('No binary input found')
+def binary_to_decimal(binary):
+  """Converts a binary number to decimal.
 
-  arg = sys.argv[1]
+  Args:
+    binary: A binary number as float.
 
-  # Validate if input is a real number. It will always return a float as string.
-  arg = str(float(arg))
-
+  Returns:
+    Decimal float number.
+  """
   # split integer and fractional part from the number.
-  binary_split = arg.split('.')
+  binary_split = str(binary).split('.')
 
   # convert integer part to decimal.
   result = convert_integer(int(binary_split[0])) if binary_split[0] else 0
@@ -128,5 +128,19 @@ if __name__ == '__main__':
   # convert fractional part to decimal and add to the integer result.
   result += convert_fraction(binary_split[1]) if binary_split[1] else 0
 
-  print('Decimal:', result)
+  return result
 
+if __name__ == '__main__':
+  assert binary_to_decimal(11.11) == 3.75
+  assert binary_to_decimal(11101101101.0) == 1901.0
+  assert binary_to_decimal(0.1010101) == 0.6640625
+
+  if len(sys.argv) < 2:
+    raise ValueError('No binary input found')
+
+  arg = sys.argv[1]
+
+  # Validate if input is a real number and convert it to float.
+  arg = float(arg)
+
+  print(binary_to_decimal(arg))

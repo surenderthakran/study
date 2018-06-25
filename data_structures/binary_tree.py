@@ -12,6 +12,25 @@ from __future__ import division
 from __future__ import print_function
 
 
+class Queue(object):
+  """Class to implement a basic FIFO queue."""
+
+  def __init__(self):
+    self.queue = []
+
+  def push(self, ele):
+    self.queue.append(ele)
+
+  def pop(self):
+    if not self.queue:
+      return
+
+    result = self.queue[0]
+    self.queue = self.queue[1:]
+
+    return result
+
+
 class Node(object):
   """Class to implement a node in a binary tree."""
 
@@ -81,6 +100,19 @@ class BinaryTree(object):
       self.postorder(current.right)
 
     print(current.data)
+
+  def breadth_first(self, current, queue):
+    print(current.data)
+
+    if current.left:
+      queue.push(current.left)
+
+    if current.right:
+      queue.push(current.right)
+
+    next = queue.pop()
+    if next:
+      self.breadth_first(next, queue)
 
   def get_nodes_at_level(self, current, level):
     """Returns a list of node at a level in a binary tree.
@@ -232,6 +264,9 @@ if __name__ == '__main__':
 
   print('Postorder:')
   tree.postorder(tree.root)
+
+  print('Breadth First:')
+  tree.breadth_first(tree.root, Queue())
 
   print('Height:', tree.height(tree.root))
 
