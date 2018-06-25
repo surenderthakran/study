@@ -137,7 +137,7 @@ class BinaryTree(object):
   def is_full_tree(self, current):
     """Determines if a binary tree is a full tree.
 
-    A binary tree is considered to be a binary tree if all its nodes have
+    A binary tree is considered to be a binary full tree if all its nodes have
     exactly 2 children or no children at all.
 
     Args:
