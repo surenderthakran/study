@@ -28,10 +28,10 @@ from enum import Enum
 
 class Size(Enum):
   """Enum to hold sizes in the system."""
-  S = 1
-  M = 2
-  L = 3
-  XL = 4
+  small = 1
+  medium = 2
+  large = 3
+  extra_large = 4
 
 
 class Queue(object):
@@ -44,7 +44,7 @@ class Queue(object):
     """Implementing the iter magic method to make Queue iterable."""
     return iter(self.queue)
 
-  def push(self, ele):
+  def Push(self, ele):
     """Adds an element to the queue.
 
     Args:
@@ -52,14 +52,14 @@ class Queue(object):
     """
     self.queue.append(ele)
 
-  def pop(self):
+  def Pop(self):
     """Removes an element from the queue.
 
     Returns:
       The oldest element in the queue or None if the queue is empty.
     """
     if not self.queue:
-      return
+      return None
 
     ele = self.queue[0]
     self.queue = self.queue[1:]
@@ -103,10 +103,10 @@ class ParkingLot(object):
 
   # Hourly parking charges for each slot size.
   charges = {
-      Size.S.name: 10,
-      Size.M.name: 15,
-      Size.L.name: 20,
-      Size.XL.name: 25,
+      Size.small.name: 10,
+      Size.medium.name: 15,
+      Size.large.name: 20,
+      Size.extra_large.name: 25,
   }
 
   # Total money collected from parking charges.
@@ -123,21 +123,21 @@ class ParkingLot(object):
     Creates slot instances for different slot sizes and stores them as a Queue
     in the slots dictionary class variable against there size.
     """
-    type(self).slots[Size.S.name] = Queue()
+    type(self).slots[Size.small.name] = Queue()
     for i in range(50):
-      type(self).slots[Size.S.name].push(Slot(i, Size.S))
+      type(self).slots[Size.small.name].Push(Slot(i, Size.small))
 
-    type(self).slots[Size.M.name] = Queue()
+    type(self).slots[Size.medium.name] = Queue()
     for i in range(50, 100):
-      type(self).slots[Size.M.name].push(Slot(i, Size.M))
+      type(self).slots[Size.medium.name].Push(Slot(i, Size.medium))
 
-    type(self).slots[Size.L.name] = Queue()
+    type(self).slots[Size.large.name] = Queue()
     for i in range(100, 150):
-      type(self).slots[Size.L.name].push(Slot(i, Size.L))
+      type(self).slots[Size.large.name].Push(Slot(i, Size.large))
 
-    type(self).slots[Size.XL.name] = Queue()
+    type(self).slots[Size.extra_large.name] = Queue()
     for i in range(150, 200):
-      type(self).slots[Size.XL.name].push(Slot(i, Size.XL))
+      type(self).slots[Size.extra_large.name].Push(Slot(i, Size.extra_large))
 
     # Set initialized to True once initialization is complete.
     type(self).initialized = True
@@ -156,13 +156,13 @@ class ParkingLot(object):
     current_slot_size = size
 
     # Fetch Queue of empty slots for the current slot size.
-    slotsQueue = type(self).slots[current_slot_size.name]
+    slots_queue = type(self).slots[current_slot_size.name]
 
     # Keep looping until a queue of slots exist.
-    while slotsQueue:
+    while slots_queue:
 
       # Fetch a slot from the queue and return it.
-      slot = slotsQueue.pop()
+      slot = slots_queue.Pop()
       if slot:
         return slot
 
@@ -173,11 +173,11 @@ class ParkingLot(object):
       # If a queue of empty slots for the higher slot size doesn't exists,
       # return None.
       if Size(new_slot_value).name not in self.slots:
-        return
+        return None
 
       # If a queue of empty slots for the higher slot size exists, set it in a
       # variable to loop again.
-      slotsQueue = type(self).slots[Size(new_slot_value).name]
+      slots_queue = type(self).slots[Size(new_slot_value).name]
 
   def _CalculateCharges(self, vehicle):
     """Calculates parking charges to be paid.
@@ -253,20 +253,25 @@ class ParkingLot(object):
     vehicle.slot.occupied = False
 
     # Add slot to the appropriate empty slots Queue in the class variable.
-    type(self).slots[vehicle.slot.size.name].push(vehicle.slot)
+    type(self).slots[vehicle.slot.size.name].Push(vehicle.slot)
 
     return True
 
   def DisplayStats(self):
     """Prints the current count of empty slots and parking charges collected."""
-    small = len(
-        [True for slot in type(self).slots[Size.S.name] if not slot.occupied])
-    medium = len(
-        [True for slot in type(self).slots[Size.M.name] if not slot.occupied])
-    large = len(
-        [True for slot in type(self).slots[Size.L.name] if not slot.occupied])
-    extra_large = len(
-        [True for slot in type(self).slots[Size.XL.name] if not slot.occupied])
+    small = len([
+        True for slot in type(self).slots[Size.small.name] if not slot.occupied
+    ])
+    medium = len([
+        True for slot in type(self).slots[Size.medium.name] if not slot.occupied
+    ])
+    large = len([
+        True for slot in type(self).slots[Size.large.name] if not slot.occupied
+    ])
+    extra_large = len([
+        True for slot in type(self).slots[Size.extra_large.name]
+        if not slot.occupied
+    ])
     print('S:', small, 'M:', medium, 'L:', large, 'XL:', extra_large,
           'Total:', small + medium + large + extra_large,
           'Collections:', type(self).collection)
