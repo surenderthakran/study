@@ -110,6 +110,7 @@ def convert_fraction(binary_fraction):
 
   return decimal
 
+
 def binary_to_decimal(binary):
   """Converts a binary number to decimal.
 

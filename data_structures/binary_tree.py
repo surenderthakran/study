@@ -102,6 +102,15 @@ class BinaryTree(object):
     print(current.data)
 
   def breadth_first(self, current, queue):
+    """Traverses and prints the nodes of a binary tree in level order.
+
+    Level Order or Breadth first traversal is where all the nodes of a level
+    are processed before moving on to the next level.
+
+    Args:
+      current: Current node to be processed.
+      queue: FIFO queue of all the nodes.
+    """
     print(current.data)
 
     if current.left:
@@ -110,9 +119,9 @@ class BinaryTree(object):
     if current.right:
       queue.push(current.right)
 
-    next = queue.pop()
-    if next:
-      self.breadth_first(next, queue)
+    next_node = queue.pop()
+    if next_node:
+      self.breadth_first(next_node, queue)
 
   def get_nodes_at_level(self, current, level):
     """Returns a list of node at a level in a binary tree.

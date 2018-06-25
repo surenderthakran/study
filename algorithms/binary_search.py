@@ -38,6 +38,7 @@ def binary_search_loop(arr, elem):
 
   return -1
 
+
 def binary_search_recursion(arr, ele):
   """Returns index of the given element in the list.
 
@@ -66,15 +67,15 @@ def binary_search_recursion(arr, ele):
     return mid + 1 + result
 
 if __name__ == '__main__':
-  arr = [1, 3, 5, 7, 9, 11, 13, 15]
-  assert binary_search_loop(arr, 5) == 2
-  assert binary_search_recursion(arr, 5) == 2
+  int_arr = [1, 3, 5, 7, 9, 11, 13, 15]
+  assert binary_search_loop(int_arr, 5) == 2
+  assert binary_search_recursion(int_arr, 5) == 2
 
-  assert binary_search_loop(arr, 14) == -1
-  assert binary_search_recursion(arr, 14) == -1
+  assert binary_search_loop(int_arr, 14) == -1
+  assert binary_search_recursion(int_arr, 14) == -1
 
-  assert binary_search_loop(arr, 0) == -1
-  assert binary_search_recursion(arr, 0) == -1
+  assert binary_search_loop(int_arr, 0) == -1
+  assert binary_search_recursion(int_arr, 0) == -1
 
-  assert binary_search_loop(arr, 16) == -1
-  assert binary_search_recursion(arr, 16) == -1
+  assert binary_search_loop(int_arr, 16) == -1
+  assert binary_search_recursion(int_arr, 16) == -1
