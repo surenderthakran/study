@@ -11,6 +11,7 @@
 #### 1. [(Difficulty: 2) Singly Linked List](data_structures/singly_linked_list.py)
 #### 2. [(Difficulty: 2) Doubly Linked List](data_structures/doubly_linked_list.py)
 #### 3. [(Difficulty: 2) Binary Tree](data_structures/binary_tree.py)
+#### 4. [(Difficulty: 3) Binary Search Tree](data_structures/binary_search_tree.py)
 
 ### Problems
 

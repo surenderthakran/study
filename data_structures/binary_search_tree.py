@@ -1,6 +1,12 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
+"""Implement a binary search tree.
+
+Usage:
+$ python binary_search_tree.py
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -23,6 +29,11 @@ class Node(object):
     return repr(self.data)
 
   def left(self):
+    """Returns left child node of the node.
+
+    Args:
+      Left child node of the node.
+    """
     return self._left
 
   def set_left(self, node):
@@ -45,6 +56,11 @@ class Node(object):
     self._left = node
 
   def right(self):
+    """Returns right child node of the node.
+
+    Args:
+      Right child node of the node.
+    """
     return self._right
 
   def set_right(self, node):
@@ -182,6 +198,14 @@ class BinarySearchTree(object):
     return is_left_bst and is_right_bst
 
   def create_bst_from_preorder(self, preorder):
+    """Creates a binary search tree from a given preorder.
+
+    Args:
+      preorder: (list) List of integer in preorder.
+
+    Returns:
+      Root node of the tree.
+    """
     if not preorder:
       return None
 
@@ -207,6 +231,7 @@ class BinarySearchTree(object):
 
 
 def create_first_tree_and_assert():
+  """Creates a binary search tree and runs assertions on its methods."""
   tree = BinarySearchTree()
   tree.root = Node(5)
 
@@ -244,6 +269,7 @@ def create_first_tree_and_assert():
 
 
 def create_second_tree_and_assert():
+  """Creates a binary search tree and runs assertions on its methods."""
   tree = BinarySearchTree()
   tree.root = Node(3)
 
