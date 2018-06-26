@@ -5,6 +5,11 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import sys
+
+MAX_INT = sys.maxsize
+MIN_INT = -sys.maxsize - 1
+
 
 class Node(object):
   def __init__(self, data):
@@ -55,25 +60,22 @@ class BinarySearchTree(object):
     else:
       return None
 
-  def is_binary_search_tree(self, current=None):
+  def is_binary_search_tree(self, current=None, min=MIN_INT, max=MAX_INT):
     if not current:
       current = self.root
 
-    if current.Left() and current.Left().data >= current.data:
+    if current.data < min or current.data > max:
       return False
 
-    if current.Right() and current.Right().data <= current.data:
-      return False
-
-    is_bst = True
+    is_left_bst = True
     if current.Left():
-      is_bst = self.is_binary_search_tree(current.Left())
+      is_left_bst = self.is_binary_search_tree(current.Left(), min, current.data - 1)
 
-    if is_bst and current.Right():
-      return self.is_binary_search_tree(current.Right())
+    is_right_bst = True
+    if current.Right():
+      is_right_bst = self.is_binary_search_tree(current.Right(), current.data + 1, max)
 
-    return is_bst
-
+    return is_left_bst and is_right_bst
 
 def create_first_tree_and_assert():
   tree = BinarySearchTree()
