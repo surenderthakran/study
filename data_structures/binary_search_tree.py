@@ -12,7 +12,7 @@ MIN_INT = -sys.maxsize - 1
 
 
 class Node(object):
-"""Class to implement a basic binary tree node."""
+  """Class to implement a basic binary tree node."""
 
   def __init__(self, data):
     self.data = data
@@ -22,14 +22,17 @@ class Node(object):
   def __repr__(self):
     return repr(self.data)
 
-  def Left(self):
+  def left(self):
     return self._left
 
-  def SetLeft(self, node):
+  def set_left(self, node):
     """Sets left child node.
 
     Args:
       node: (Node) Node to set as left child.
+
+    Raises:
+      ValueError: If the left child's value is greater than the current node.
     """
     if not node:
       return
@@ -41,14 +44,17 @@ class Node(object):
 
     self._left = node
 
-  def Right(self):
+  def right(self):
     return self._right
 
-  def SetRight(self, node):
+  def set_right(self, node):
     """Sets right child node.
 
     Args:
       node: (Node) Node to set as right child.
+
+    Raises:
+      ValueError: If the right child's value is smaller than the current node.
     """
     if not node:
       return
@@ -80,13 +86,13 @@ class BinarySearchTree(object):
       current = self.root
 
     inorder = []
-    if current.Left():
-      inorder += self.get_data_inorder(current.Left())
+    if current.left():
+      inorder += self.get_data_inorder(current.left())
 
     inorder.append(current.data)
 
-    if current.Right():
-      inorder += self.get_data_inorder(current.Right())
+    if current.right():
+      inorder += self.get_data_inorder(current.right())
 
     return inorder
 
@@ -105,15 +111,15 @@ class BinarySearchTree(object):
 
     if current.data == data:
       return current
-    elif data < current.data and current.Left():
-      return self.find(data, current.Left())
-    elif current.Right():
-      return self.find(data, current.Right())
-    else:
-      return None
+    elif data < current.data and current.left():
+      return self.find(data, current.left())
+    elif current.right():
+      return self.find(data, current.right())
+
+    return None
 
   def is_binary_search_tree(
-      self, current=None, minVal=MIN_INT, maxVal=MAX_INT):
+      self, current=None, min_val=MIN_INT, max_val=MAX_INT):
     """Determines if the tree is a true binary search tree.
 
     For a tree to be a binary search tree, it must be:
@@ -133,7 +139,7 @@ class BinarySearchTree(object):
 
     Second more efficient method would be to recursively give each node the
     minimum and maximum range for values that it and its children can have.
-    The initial minimum and maximum value for the root node would be the the
+    The initial minimum and maximum value for the root node would be the
     maximum system integer limits.
 
     A third simple way of doing it would be to do an in-order traversal of the
@@ -142,8 +148,8 @@ class BinarySearchTree(object):
 
     Args:
       current: Node to start processing from. (Node)
-      min: Minimum allowed value for all children of the current node. (int)
-      max: Maximum allowed value for all children of the current node. (int)
+      min_val: Minimum allowed value for all children of the current node.
+      max_val: Maximum allowed value for all children of the current node.
 
     Returns:
       True if the tree is a binary search tree else False. (bool)
@@ -153,24 +159,24 @@ class BinarySearchTree(object):
       current = self.root
 
     # If the current node's data is out of bounds, it is not a BST.
-    if current.data < minVal or current.data > maxVal:
+    if current.data < min_val or current.data > max_val:
       return False
 
     is_left_bst = True
-    if current.Left():
+    if current.left():
       # Give new bounds for the left subtree. The lower bound remains the same
       # as the current subtree but the upper bound would be one less than the
       # current node's value.
-      is_left_bst = self.is_binary_search_tree(current.Left(),
-                                               minVal, current.data - 1)
+      is_left_bst = self.is_binary_search_tree(current.left(),
+                                               min_val, current.data - 1)
 
     is_right_bst = True
-    if current.Right():
+    if current.right():
       # Give new bounds to the right subtree. The upper bound will be same as
       # the current subtree but the lower bould would be one greater than the
       # current node's value.
-      is_right_bst = self.is_binary_search_tree(current.Right(),
-                                                current.data + 1, maxVal)
+      is_right_bst = self.is_binary_search_tree(current.right(),
+                                                current.data + 1, max_val)
 
     # return true only if both left and right subtrees are BST.
     return is_left_bst and is_right_bst
@@ -186,7 +192,7 @@ class BinarySearchTree(object):
 
     preorder = preorder[1:]
     sentinel = len(preorder)
-    for index in range(len(preorder)):
+    for index, _ in enumerate(preorder):
       if preorder[index] > current_node.data:
         sentinel = index
         break
@@ -194,38 +200,39 @@ class BinarySearchTree(object):
     left_preorder = preorder[:sentinel]
     right_preorder = preorder[sentinel:]
 
-    current_node.SetLeft(self.create_bst_from_preorder(left_preorder))
-    current_node.SetRight(self.create_bst_from_preorder(right_preorder))
+    current_node.set_left(self.create_bst_from_preorder(left_preorder))
+    current_node.set_right(self.create_bst_from_preorder(right_preorder))
 
     return current_node
+
 
 def create_first_tree_and_assert():
   tree = BinarySearchTree()
   tree.root = Node(5)
 
   node_3 = Node(3)
-  tree.root.SetLeft(node_3)
+  tree.root.set_left(node_3)
 
   node_2 = Node(2)
-  node_3.SetLeft(node_2)
+  node_3.set_left(node_2)
 
   node_4 = Node(4)
-  node_3.SetRight(node_4)
+  node_3.set_right(node_4)
 
   node_1 = Node(1)
-  node_2.SetLeft(node_1)
+  node_2.set_left(node_1)
 
   node_8 = Node(8)
-  tree.root.SetRight(node_8)
+  tree.root.set_right(node_8)
 
   node_7 = Node(7)
-  node_8.SetLeft(node_7)
+  node_8.set_left(node_7)
 
   node_6 = Node(6)
-  node_7.SetLeft(node_6)
+  node_7.set_left(node_6)
 
   node_9 = Node(9)
-  node_8.SetRight(node_9)
+  node_8.set_right(node_9)
 
   assert tree.find(1) is not None
   assert tree.find(10) is None
@@ -241,16 +248,16 @@ def create_second_tree_and_assert():
   tree.root = Node(3)
 
   node_2 = Node(2)
-  tree.root.SetLeft(node_2)
+  tree.root.set_left(node_2)
 
   node_1 = Node(1)
-  node_2.SetLeft(node_1)
+  node_2.set_left(node_1)
 
   node_4 = Node(4)
-  node_2.SetRight(node_4)
+  node_2.set_right(node_4)
 
   node_5 = Node(5)
-  tree.root.SetRight(node_5)
+  tree.root.set_right(node_5)
 
   assert tree.is_binary_search_tree() is False
 
@@ -262,6 +269,6 @@ if __name__ == '__main__':
   create_first_tree_and_assert()
   create_second_tree_and_assert()
 
-  tree = BinarySearchTree()
-  tree.root = tree.create_bst_from_preorder([10, 5, 1, 7, 40, 50])
-  assert tree.get_data_inorder() == [1, 5, 7, 10, 40, 50]
+  bst = BinarySearchTree()
+  bst.root = bst.create_bst_from_preorder([10, 5, 1, 7, 40, 50])
+  assert bst.get_data_inorder() == [1, 5, 7, 10, 40, 50]
