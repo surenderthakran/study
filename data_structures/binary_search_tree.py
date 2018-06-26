@@ -12,6 +12,8 @@ MIN_INT = -sys.maxsize - 1
 
 
 class Node(object):
+"""Class to implement a basic binary tree node."""
+
   def __init__(self, data):
     self.data = data
     self._left = None
@@ -24,6 +26,11 @@ class Node(object):
     return self._left
 
   def SetLeft(self, node):
+    """Sets left child node.
+
+    Args:
+      node: (Node) Node to set as left child.
+    """
     if not node:
       return
 
@@ -38,6 +45,11 @@ class Node(object):
     return self._right
 
   def SetRight(self, node):
+    """Sets right child node.
+
+    Args:
+      node: (Node) Node to set as right child.
+    """
     if not node:
       return
 
@@ -50,6 +62,8 @@ class Node(object):
 
 
 class BinarySearchTree(object):
+  """Class to implement a binary search tree."""
+
   def __init__(self):
     self.root = None
 
