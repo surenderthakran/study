@@ -74,7 +74,8 @@ class BinarySearchTree(object):
 
     return is_bst
 
-if __name__ == '__main__':
+
+def create_first_tree_and_assert():
   tree = BinarySearchTree()
   tree.root = Node(5)
 
@@ -106,3 +107,26 @@ if __name__ == '__main__':
   print(tree.find(10))
 
   assert tree.is_binary_search_tree() is True
+
+
+def create_second_tree_and_assert():
+  tree = BinarySearchTree()
+  tree.root = Node(3)
+
+  node_2 = Node(2)
+  tree.root.SetLeft(node_2)
+
+  node_1 = Node(1)
+  node_2.SetLeft(node_1)
+
+  node_4 = Node(4)
+  node_2.SetRight(node_4)
+
+  node_5 = Node(5)
+  tree.root.SetRight(node_5)
+
+  assert tree.is_binary_search_tree() is False
+
+if __name__ == '__main__':
+  create_first_tree_and_assert()
+  create_second_tree_and_assert()
