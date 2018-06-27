@@ -180,6 +180,7 @@ class BinaryTree(object):
 
     A binary tree is considered to be a binary full tree if all its nodes have
     exactly 2 children or no children at all.
+    The nodes with no children need not be in the last level.
 
     Args:
       current: root node of the binary tree or sub-tree.

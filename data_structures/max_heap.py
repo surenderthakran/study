@@ -1,4 +1,4 @@
-#!/usr/env/bin python2
+#!/usr/bin/env python2
 # -*- coding:utf-8 -*-
 
 from __future__ import absolute_import
@@ -15,6 +15,9 @@ class Node(object):
     self.right = None
     self.parent = None
 
+  def __repr__(self):
+    return str(self.data)
+
 
 class MaxHeap(object):
   """Class to implenent a max heap."""
@@ -22,11 +25,112 @@ class MaxHeap(object):
   def __init__(self):
     self.root = None
 
-  def height(self):
-    pass
+  def get_data_preorder(self, current=None):
+    """Returns tree data inorder.
 
-  def create_max_heap_from_list(self, arr):
-    pass
+    Args:
+      current: (Node) Root node of the tree/subtree.
+
+    Returns:
+      List of integers.
+    """
+    if not current:
+      current = self.root
+
+    nodes = [current.data]
+
+    if current.left:
+      nodes += self.get_data_preorder(current.left)
+
+    if current.right:
+      nodes += self.get_data_preorder(current.right)
+
+    return nodes
+
+  def height(self, current=None):
+    """Calculates height of the heap/binary tree from the given node's level.
+
+    Args:
+      current: (Node) Node from which we count levels.
+
+    Returns:
+      (int) Count of levels down from the given node.
+    """
+    if not current:
+      current = self.root
+
+    left_height = 0
+    if current.left:
+      left_height = self.height(current.left)
+
+    right_height = 0
+    if current.right:
+      right_height = self.height(current.right)
+
+    child_height = max(left_height, right_height)
+
+    return child_height + 1
+
+  def get_nodes_at_level(self, level, current=None):
+    if not current:
+      current = self.root
+
+    if level == 0:
+      return [current]
+
+    nodes = []
+    if current.left:
+      nodes += self.get_nodes_at_level(level-1, current.left)
+
+    if current.right:
+      nodes += self.get_nodes_at_level(level-1, current.right)
+
+    return nodes
+
+
+def create_max_heap_from_list(arr):
+  heap = None
+  for ele in arr:
+    current = Node(ele)
+    if not heap:
+      heap = MaxHeap()
+      heap.root = current
+    else:
+      height = heap.height()
+      insertion_nodes = None
+      prev_level_nodes = None
+      for level in range(height):
+        level_nodes = heap.get_nodes_at_level(level)
+        if len(level_nodes) == pow(2, level) and level == height - 1:
+          insertion_nodes = level_nodes
+          break
+        elif len(level_nodes) < pow(2, level):
+          insertion_nodes = prev_level_nodes
+          break
+        prev_level_nodes = level_nodes
+
+      for node in insertion_nodes:
+        if not node.left:
+          node.left = current
+          current.parent = node
+          break
+
+        if not node.right:
+          node.right = current
+          current.parent = node
+          break
+
+    max_heapify(current)
+
+  return heap
+
+
+def max_heapify(current):
+  if current.parent and current.data > current.parent.data:
+    temp = current.data
+    current.data = current.parent.data
+    current.parent.data = temp
+    max_heapify(current.parent)
 
 
 def create_first_heap_and_assert():
@@ -73,8 +177,32 @@ def create_first_heap_and_assert():
 
   assert heap.height() == 4
 
+  assert repr(heap.get_nodes_at_level(0)) == '[44]'
+  assert repr(heap.get_nodes_at_level(1)) == '[42, 35]'
+  assert repr(heap.get_nodes_at_level(2)) == '[33, 31, 19, 27]'
+  assert repr(heap.get_nodes_at_level(3)) == '[10, 26, 14]'
+  assert repr(heap.get_nodes_at_level(4)) == '[]'
+
+  assert heap.get_data_preorder() == [44, 42, 33, 10, 26, 31, 14, 35, 19, 27]
+
+
+def create_second_heap_and_assert():
+  a = [35, 33, 42, 10, 14, 19, 27, 44, 26, 31]
+
+  heap = create_max_heap_from_list(a)
+
+  assert heap.height() == 4
+
+  assert repr(heap.get_nodes_at_level(0)) == '[44]'
+  assert repr(heap.get_nodes_at_level(1)) == '[42, 35]'
+  assert repr(heap.get_nodes_at_level(2)) == '[33, 31, 19, 27]'
+  assert repr(heap.get_nodes_at_level(3)) == '[10, 26, 14]'
+  assert repr(heap.get_nodes_at_level(4)) == '[]'
+
+  assert heap.get_data_preorder() == [44, 42, 33, 10, 26, 31, 14, 35, 19, 27]
+
 
 if __name__ == '__main__':
   create_first_heap_and_assert()
 
-  a = [35, 33, 42, 10, 14, 19, 27, 44, 26, 31]
+  create_second_heap_and_assert()
