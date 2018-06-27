@@ -50,7 +50,7 @@ class BinaryTree(object):
   def __init__(self):
     self.root = None
 
-  def preorder(self, current):
+  def get_nodes_preorder(self, current=None):
     """Traverses and prints nodes of a binary tree in preorder.
 
     Preorder traversal is a type of depth first traversal where the parent's
@@ -58,16 +58,24 @@ class BinaryTree(object):
 
     Args:
       current: root node of the binary tree or sub-tree.
+
+    Retruns:
+      List of nodes.
     """
-    print(current.data)
+    if not current:
+      current = self.root
+
+    nodes = [current]
 
     if current.left:
-      self.preorder(current.left)
+      nodes += self.get_nodes_preorder(current.left)
 
     if current.right:
-      self.preorder(current.right)
+      nodes += self.get_nodes_preorder(current.right)
 
-  def inorder(self, current):
+    return nodes
+
+  def get_nodes_inorder(self, current=None):
     """Traverses and prints the nodes of a binary tree in inorder.
 
     Inorder traversal is a type of depth first traversal where the left child
@@ -75,14 +83,23 @@ class BinaryTree(object):
 
     Args:
       current: root node of the binary tree or sub-tree.
-    """
-    if current.left:
-      self.inorder(current.left)
 
-    print(current.data)
+    Returns:
+      List of nodes.
+    """
+    if not current:
+      current = self.root
+
+    nodes = []
+    if current.left:
+      nodes += self.get_nodes_inorder(current.left)
+
+    nodes.append(current)
 
     if current.right:
-      self.inorder(current.right)
+      nodes += self.get_nodes_inorder(current.right)
+
+    return nodes
 
   def postorder(self, current):
     """Traverses and prints the nodes of a binary tree in postorder.
@@ -244,7 +261,8 @@ class BinaryTree(object):
 
     return True
 
-if __name__ == '__main__':
+
+def create_tree_and_assert():
   tree = BinaryTree()
   tree.root = Node(1)
 
@@ -266,11 +284,9 @@ if __name__ == '__main__':
   node_7 = Node(7)
   node_3.right = node_7
 
-  print('Preorder:')
-  tree.preorder(tree.root)
+  assert repr(tree.get_nodes_preorder()) == '[1, 2, 4, 5, 3, 6, 7]'
 
-  print('Inorder:')
-  tree.inorder(tree.root)
+  assert repr(tree.get_nodes_inorder()) == '[4, 2, 5, 1, 6, 3, 7]'
 
   print('Postorder:')
   tree.postorder(tree.root)
@@ -286,3 +302,7 @@ if __name__ == '__main__':
   print('Full Tree:', tree.is_full_tree(tree.root))
   print('Complete Tree:', tree.is_complete_tree())
   print('Perfect Tree:', tree.is_perfect_tree())
+
+
+if __name__ == '__main__':
+  create_tree_and_assert()
