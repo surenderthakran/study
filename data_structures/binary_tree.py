@@ -257,18 +257,44 @@ class BinaryTree(object):
     of nodes at each level, i.e. 2^k where k is the level, except for the last
     level.
     The last level must has all nodes to as left as possible.
-    @TODO(surenderthakran): implement check if nodes in the last level are as
-    left as possible.
 
     Returns:
       True if the binary tree is complete else False.
     """
     height = self.height(self.root)
 
+    # Keeping track of nodes in previous level to use them to check if nodes
+    # in the last level are as left as possible.
+    nodes_at_prev_level = None
     for level in range(height):
       nodes_at_level = self.get_nodes_at_level(level)
-      if len(nodes_at_level) != pow(2, level) and level < height - 2:
+
+      # If for a level above the last level, the nnumber of nodes is less
+      # than 2^k, the tree is not a complete tree.
+      if level < height - 1 and len(nodes_at_level) < pow(2, level):
         return False
+
+      # If the last level does not has 2^k nodes, check if all the nodes are as
+      # left as possible.
+      if level == height - 1 and len(nodes_at_level) < pow(2, level):
+        # Flag to keep track of previous node's status.
+        is_prev_node_full = True
+        for index, node in enumerate(nodes_at_prev_level):
+          # If the node has a left node but the previous node is not full, it
+          # means the nodes in the child level are not as left as possible.
+          if node.left and not is_prev_node_full:
+            return False
+
+          # If the node has a right child but no left child, it means the nodes
+          # in the child level are not as left as possible.
+          if node.right and not node.left:
+            return False
+
+          # If the node even has one missing child, the node is not full.
+          if not node.left or not node.right:
+            is_prev_node_full = False
+
+      nodes_at_prev_level = nodes_at_level
 
     return True
 
@@ -291,7 +317,7 @@ class BinaryTree(object):
     return True
 
 
-def create_tree_and_assert():
+def create_first_tree_and_assert():
   """Creates a binary tree and runs assertions on its methods."""
   tree = BinaryTree()
   tree.root = Node(1)
@@ -333,5 +359,45 @@ def create_tree_and_assert():
   assert tree.is_perfect_tree() is True
 
 
+def create_second_tree_and_assert():
+  """Creates a binary tree and runs assertions on its methods."""
+  tree = BinaryTree()
+  tree.root = Node(1)
+
+  node_2 = Node(2)
+  tree.root.left = node_2
+
+  node_3 = Node(3)
+  tree.root.right = node_3
+
+  node_4 = Node(4)
+  node_2.left = node_4
+
+  node_5 = Node(5)
+  node_2.right = node_5
+
+  node_7 = Node(7)
+  node_3.right = node_7
+
+  assert repr(tree.get_nodes_preorder()) == '[1, 2, 4, 5, 3, 7]'
+
+  assert repr(tree.get_nodes_inorder()) == '[4, 2, 5, 1, 3, 7]'
+
+  assert repr(tree.get_nodes_postorder()) == '[4, 5, 2, 7, 3, 1]'
+
+  assert repr(tree.get_nodes_breadth_first()) == '[1, 2, 3, 4, 5, 7]'
+
+  assert tree.height() == 3
+
+  assert repr(tree.get_nodes_at_level(0)) == '[1]'
+  assert repr(tree.get_nodes_at_level(1)) == '[2, 3]'
+  assert repr(tree.get_nodes_at_level(2)) == '[4, 5, 7]'
+
+  assert tree.is_full_tree() is False
+  assert tree.is_complete_tree() is False
+  assert tree.is_perfect_tree() is False
+
+
 if __name__ == '__main__':
-  create_tree_and_assert()
+  create_first_tree_and_assert()
+  create_second_tree_and_assert()
