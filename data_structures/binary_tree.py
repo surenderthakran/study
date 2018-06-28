@@ -101,7 +101,7 @@ class BinaryTree(object):
 
     return nodes
 
-  def postorder(self, current):
+  def get_nodes_postorder(self, current=None):
     """Traverses and prints the nodes of a binary tree in postorder.
 
     Postorder traversal is a type of depth first traversal where the node is
@@ -109,16 +109,25 @@ class BinaryTree(object):
 
     Args:
       current: root node of the binary tree or sub-tree.
+
+    Returns:
+      List of nodes.
     """
+    if not current:
+      current = self.root
+
+    nodes = []
     if current.left:
-      self.postorder(current.left)
+      nodes += self.get_nodes_postorder(current.left)
 
     if current.right:
-      self.postorder(current.right)
+      nodes += self.get_nodes_postorder(current.right)
 
-    print(current.data)
+    nodes.append(current)
 
-  def breadth_first(self, current, queue):
+    return nodes
+
+  def get_nodes_breadth_first(self, current=None, queue=None):
     """Traverses and prints the nodes of a binary tree in level order.
 
     Level Order or Breadth first traversal is where all the nodes of a level
@@ -127,8 +136,17 @@ class BinaryTree(object):
     Args:
       current: Current node to be processed.
       queue: FIFO queue of all the nodes.
+
+    Returns:
+      List of nodes.
     """
-    print(current.data)
+    if not current:
+      current = self.root
+
+    if not queue:
+      queue = Queue()
+
+    nodes = [current]
 
     if current.left:
       queue.push(current.left)
@@ -138,33 +156,38 @@ class BinaryTree(object):
 
     next_node = queue.pop()
     if next_node:
-      self.breadth_first(next_node, queue)
+      nodes += self.get_nodes_breadth_first(next_node, queue)
 
-  def get_nodes_at_level(self, current, level):
+    return nodes
+
+  def get_nodes_at_level(self, level, current=None):
     """Returns a list of node at a level in a binary tree.
 
     This method returns a list of nodes a given level below the
     given node.
 
     Args:
-      current: root node of the binary tree or sub-tree.
       level: number of levels down from the given root node.
+      current: root node of the binary tree or sub-tree.
 
     Returns:
       list of binary tree nodes.
     """
+    if not current:
+      current = self.root
+
     nodes = []
     if level == 0:
       nodes.append(current)
     elif level > 0:
       if current.left:
-        nodes += self.get_nodes_at_level(current.left, level - 1)
+        nodes += self.get_nodes_at_level(level - 1, current.left)
       if current.right:
-        nodes += self.get_nodes_at_level(current.right, level - 1)
+        nodes += self.get_nodes_at_level(level - 1, current.right)
 
     return nodes
 
-  def height(self, current):
+  def height(self, current=None):
     """Returns the height of a binary tree.
 
     It calculates the height of a binary tree down from the given node.
@@ -175,6 +198,9 @@ class BinaryTree(object):
     Returns:
       integer height of the binary tree.
     """
+    if not current:
+      current = self.root
+
     height = 0
 
     if current:
@@ -192,7 +218,7 @@ class BinaryTree(object):
 
     return height
 
-  def is_full_tree(self, current):
+  def is_full_tree(self, current=None):
     """Determines if a binary tree is a full tree.
 
     A binary tree is considered to be a binary full tree if all its nodes have
@@ -205,6 +231,9 @@ class BinaryTree(object):
     Returns:
       True if the tree is a full tree else False.
     """
+    if not current:
+      current = self.root
+
     if bool(current.left) != bool(current.right):
       return False
 
@@ -237,7 +266,7 @@ class BinaryTree(object):
     height = self.height(self.root)
 
     for level in range(height):
-      nodes_at_level = self.get_nodes_at_level(self.root, level)
+      nodes_at_level = self.get_nodes_at_level(level)
       if len(nodes_at_level) != pow(2, level) and level < height - 2:
         return False
 
@@ -255,7 +284,7 @@ class BinaryTree(object):
     height = self.height(self.root)
 
     for level in range(height):
-      nodes_at_level = self.get_nodes_at_level(self.root, level)
+      nodes_at_level = self.get_nodes_at_level(level)
       if len(nodes_at_level) != pow(2, level):
         return False
 
@@ -263,6 +292,7 @@ class BinaryTree(object):
 
 
 def create_tree_and_assert():
+  """Creates a binary tree and runs assertions on its methods."""
   tree = BinaryTree()
   tree.root = Node(1)
 
@@ -288,20 +318,19 @@ def create_tree_and_assert():
 
   assert repr(tree.get_nodes_inorder()) == '[4, 2, 5, 1, 6, 3, 7]'
 
-  print('Postorder:')
-  tree.postorder(tree.root)
+  assert repr(tree.get_nodes_postorder()) == '[4, 5, 2, 6, 7, 3, 1]'
 
-  print('Breadth First:')
-  tree.breadth_first(tree.root, Queue())
+  assert repr(tree.get_nodes_breadth_first()) == '[1, 2, 3, 4, 5, 6, 7]'
 
-  print('Height:', tree.height(tree.root))
+  assert tree.height() == 3
 
-  print('Nodes at level 1:', tree.get_nodes_at_level(tree.root, 1))
-  print('Nodes at level 2:', tree.get_nodes_at_level(tree.root, 2))
+  assert repr(tree.get_nodes_at_level(0)) == '[1]'
+  assert repr(tree.get_nodes_at_level(1)) == '[2, 3]'
+  assert repr(tree.get_nodes_at_level(2)) == '[4, 5, 6, 7]'
 
-  print('Full Tree:', tree.is_full_tree(tree.root))
-  print('Complete Tree:', tree.is_complete_tree())
-  print('Perfect Tree:', tree.is_perfect_tree())
+  assert tree.is_full_tree() is True
+  assert tree.is_complete_tree() is True
+  assert tree.is_perfect_tree() is True
 
 
 if __name__ == '__main__':
