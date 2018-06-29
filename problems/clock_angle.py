@@ -4,33 +4,12 @@
 """Calculate angle between the minute and hour hand in a clock.
 
 Usage:
-$ python clock_angle.py <time as a floating number>
-
-Example:
-$ python clock_angle.py 10.00
-60.0
-
-$ python clock_angle.py 10.15
-142.5
-
-$ python clock_angle.py 10.30
-135.0
-
-$ python clock_angle.py 12.00
-0
-
-$ python clock_angle.py 12.30
-165.0
-
-$ python clock_angle.py 6.30
-15.0
+$ python clock_angle.py
 """
 
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
-import sys
 
 
 def is_valid_time(time):
@@ -104,17 +83,22 @@ def get_angle_between_hands(hours, minutes):
 
   return angle
 
+
+def assert_clock_angle():
+  """Runs assertions for different input times on the algorithm."""
+  tests = [
+      {'time': '10.0', 'angle': 60.0},
+      {'time': '10.15', 'angle': 142.5},
+      {'time': '10.30', 'angle': 135.0},
+      {'time': '12.0', 'angle': 0},
+      {'time': '12.30', 'angle': 165.0},
+      {'time': '6.30', 'angle': 15.0},
+  ]
+
+  for test in tests:
+    hours, minutes = get_hours_and_minutes(test['time'])
+    assert get_angle_between_hands(hours, minutes) == test['angle']
+
+
 if __name__ == '__main__':
-  # check if time has been provided.
-  if len(sys.argv) < 2:
-    raise ValueError('Please enter a time')
-
-  time = sys.argv[1]
-
-  # validate time validity
-  if not is_valid_time(time):
-    raise ValueError('time is not valid:', time)
-
-  hours, minutes = get_hours_and_minutes(time)
-
-  print(get_angle_between_hands(hours, minutes))
+  assert_clock_angle()

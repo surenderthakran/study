@@ -1,4 +1,4 @@
-#!/usr/env/bin python2
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 """Return all possible permutations of a given string.
@@ -72,6 +72,11 @@ def get_permutations(string):
   return pems
 
 if __name__ == '__main__':
+  assert get_permutations('ab') == ['b', 'ab', 'ba', 'a']
+  assert get_permutations('abc') == ['c', 'bc', 'cb', 'b', 'ac', 'ca', 'abc',
+                                     'bac', 'bca', 'acb', 'cab', 'cba', 'ab',
+                                     'ba', 'a']
+
   if len(sys.argv) < 2:
     raise ValueError('No input string found')
 
