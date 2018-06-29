@@ -13,16 +13,25 @@ from __future__ import print_function
 
 
 def is_ransom_source(note, magazine):
-  # Convert the texts to lower case and transform them into list using python's
-  # split() method which will take care of generalizing newline and
+  """Determine if the ransom note can be created from the given magazine page.
+
+  Args:
+    note: (string) Ransom note.
+    magazine: (string) Magazine page.
+
+  Returns:
+    True if the note can be made from the magazine, else False.
+  """
+  # It convert the texts to lower case and transform them into list using
+  # python's split() method which will take care of generalizing newline and
   # whitespaces.
   # Also, for the sake of simplicity we are not bothering about the punctuation
   # marks in this solution.
   note_list = note.lower().split()
-  magazine_list  = magazine.lower().split()
+  magazine_list = magazine.lower().split()
 
   # create a dictionary of words in the ransom note against the count of their
-  # occurence.
+  # occurrence.
   note_dict = {}
   for word in note_list:
     if word in note_dict:
@@ -50,19 +59,19 @@ def is_ransom_source(note, magazine):
   return True
 
 if __name__ == '__main__':
-  note = r"""We have your daughter. If you care about her well being,
+  note_text = r"""We have your daughter. If you care about her well being,
   you will do as we say. Do not inform the police or anyone else.
   Arrange 10 thousand rupees within 24 hours and wait for our call."""
 
   # Pardon the awkward english. I simply copied the ransom note's text and
   # edited it because I am lazy. :-)
-  magazine = r"""We have the well being of your daughter as our first priority.
-  If you too care about her and her pet dog's well being, this summer,
-  you will do as we say. We suggest you to enroll them for our summer pet camp. Do not worry
-  about the commute, we will take care of that and inform you about the
-  details. We also police the pets with the help of our trained vets so that
+  magazine_text = r"""We have the well being of your daughter as our first
+  priority. If you too care about her and her pet dog's well being, this summer,
+  you will do as we say. We suggest you to enroll them for our summer pet camp.
+  Do not worry about the commute, we will take care of that and inform you about
+  the details. We also police the pets with the help of our trained vets so that
   we don't need to bother you or anyone else. It will be fun for your daughter.
   Please arrange 10 thousand rupees as enrollment fee whose window closes
   within the next 24 hours and wait for our call."""
 
-  print(is_ransom_source(note, magazine))
+  print(is_ransom_source(note_text, magazine_text))

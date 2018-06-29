@@ -45,5 +45,4 @@ def find_minimum_in_rotated_sorted_list(arr):
   return arr[low]
 
 if __name__ == '__main__':
-  arr = [6, 7, 1, 2, 3, 4, 5]
-  print(find_minimum_in_rotated_sorted_list(arr))
+  assert find_minimum_in_rotated_sorted_list([6, 7, 1, 2, 3, 4, 5]) == 1
