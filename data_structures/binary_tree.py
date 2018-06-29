@@ -23,7 +23,7 @@ class Queue(object):
 
   def pop(self):
     if not self.queue:
-      return
+      return None
 
     result = self.queue[0]
     self.queue = self.queue[1:]
@@ -59,7 +59,7 @@ class BinaryTree(object):
     Args:
       current: root node of the binary tree or sub-tree.
 
-    Retruns:
+    Returns:
       List of nodes.
     """
     if not current:
@@ -279,7 +279,7 @@ class BinaryTree(object):
       if level == height - 1 and len(nodes_at_level) < pow(2, level):
         # Flag to keep track of previous node's status.
         is_prev_node_full = True
-        for index, node in enumerate(nodes_at_prev_level):
+        for _, node in enumerate(nodes_at_prev_level):
           # If the node has a left node but the previous node is not full, it
           # means the nodes in the child level are not as left as possible.
           if node.left and not is_prev_node_full:

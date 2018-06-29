@@ -49,9 +49,10 @@ def convert_integer_with_recursion(decimal):
     binary += str(decimal % 2)
 
     return str(binary)
-  else:
-    # since binaries 0 and 1 have the same value in decimals.
-    return str(decimal)
+
+  # Else return the decimal, since binaries 0 and 1 have the same value in
+  # decimals.
+  return str(decimal)
 
 
 def convert_integer_with_loops(decimal):
@@ -147,4 +148,3 @@ if __name__ == '__main__':
   if arg_split[1] and arg_split[1] != '0':
     result2 += '.' + convert_fraction(float('0.' + arg_split[1]))
   print(result2)
-
