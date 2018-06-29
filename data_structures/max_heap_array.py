@@ -87,6 +87,15 @@ class MaxHeap(object):
       # Set parent's index as current index.
       index = self.parent_index(index)
 
+  def remove(self, data):
+    top = self.arr[0]
+    self.arr[0] = self.arr[len(self.arr) - 1]
+
+    self.sink_down_element(0)
+
+  def sink_down_element(self, index):
+    pass
+
   def get_data_preorder(self, current=None):
     """Returns tree data inorder.
 
