@@ -20,10 +20,6 @@ class MaxHeap(object):
   def __repr__(self):
     return str(self.arr)
 
-  def add(self, data):
-    self.arr.append(data)
-    self.heapify()
-
   def left_index(self, index):
     left_index = 2 * index + 1
     # Check if left index is out of bounds.
@@ -72,20 +68,24 @@ class MaxHeap(object):
 
     return self.arr[parent_index]
 
-  def heapify(self, index=None):
+  def add(self, data):
+    self.arr.append(data)
+    self.bubble_up_element()
+
+  def bubble_up_element(self, index=None):
     # If no index is given, heapify the last element.
     if not index:
       index = len(self.arr) - 1
 
     # If parent exists and its value is smaller than the current node.
-    if self.parent(index) and self.parent(index) < self.arr[index]:
+    while self.parent(index) and self.parent(index) < self.arr[index]:
       # Swap with parent
       temp = self.parent(index)
       self.arr[self.parent_index(index)] = self.arr[index]
       self.arr[index] = temp
 
-      # Heapify parent index.
-      self.heapify(self.parent_index(index))
+      # Set parent's index as current index.
+      index = self.parent_index(index)
 
   def get_data_preorder(self, current=None):
     """Returns tree data inorder.
