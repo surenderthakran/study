@@ -26,4 +26,5 @@
 
 #### 1. [Design a system for a parking lot.](system_design/parking_lot.py)
 
-Note: Implementation difficulty is on a scale of 1 to 5 and I tend to reduce them as I get more comfortable with the concepts or increase them when I update the implementation for better performance.
+
+**Note:** Difficulty is on a scale of 1 to 5. I tend to reduce them as I get more comfortable with the concepts or increase them when I update the implementation for better performance.

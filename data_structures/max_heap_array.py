@@ -127,7 +127,7 @@ class MaxHeap(object):
     top = self.arr[0]
 
     # Replace the root with the last elemrnt.
-    self.arr[0] = self.arr[len(self.arr) - 1]
+    self.arr[0] = self.arr[-1]
 
     # Remove the last element from the array.
     self.arr = self.arr[:-1]
@@ -154,7 +154,7 @@ class MaxHeap(object):
     if self.left(index) and self.left(index) > self.arr[largest]:
       largest = self.left_index(index)
 
-    # If right exists and is larger than the largest, set it as largest. 
+    # If right exists and is larger than the largest, set it as largest.
     if self.right(index) and self.right(index) > self.arr[largest]:
       largest = self.right_index(index)
 
@@ -166,6 +166,27 @@ class MaxHeap(object):
 
       # Repeat with the swapped child as parent.
       self.sink_down_element(largest)
+
+  def delete(self, index):
+    """Deletes the given index element from the heap.
+
+    Args:
+      index: (int) Index of the element in the heap array.
+    """
+    # If the element to be removed is the last element in the heap, simply
+    # remove it from the array.
+    if index == len(self.arr) - 1:
+      self.arr = self.arr[:-1]
+      return
+
+    # Replace index with the last element in the heap.
+    self.arr[index] = self.arr[-1]
+
+    # Remove last element in the heap.
+    self.arr = self.arr[:-1]
+
+    # Sink down the newly replaced element at the index.
+    self.sink_down_element(index)
 
   def get_data_preorder(self, current=None):
     """Returns tree data inorder.
@@ -201,6 +222,9 @@ def create_heap_and_assert():
   assert heap.heap_array() == [42, 33, 35, 26, 31, 19, 27, 10, 14]
   assert heap.get_data_preorder() == [42, 33, 26, 10, 14, 31, 35, 19, 27]
 
+  heap.delete(2)
+
+  assert heap.heap_array() == [42, 33, 27, 26, 31, 19, 14, 10]
 
 if __name__ == '__main__':
   create_heap_and_assert()
