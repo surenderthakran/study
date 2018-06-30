@@ -188,39 +188,15 @@ class MaxHeap(object):
     # Sink down the newly replaced element at the index.
     self.sink_down_element(index)
 
-  def get_data_preorder(self, current=None):
-    """Returns tree data inorder.
-
-    Args:
-      current: (Node) Root node of the tree/subtree.
-
-    Returns:
-      List of integers.
-    """
-    if not current:
-      current = 0
-
-    data = [self.arr[current]]
-
-    if self.left(current):
-      data += self.get_data_preorder(self.left_index(current))
-
-    if self.right(current):
-      data += self.get_data_preorder(self.right_index(current))
-
-    return data
-
 
 def create_heap_and_assert():
   heap = MaxHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
 
   assert heap.heap_array() == [44, 42, 35, 33, 31, 19, 27, 10, 26, 14]
-  assert heap.get_data_preorder() == [44, 42, 33, 10, 26, 31, 14, 35, 19, 27]
 
   assert heap.remove() == 44
 
   assert heap.heap_array() == [42, 33, 35, 26, 31, 19, 27, 10, 14]
-  assert heap.get_data_preorder() == [42, 33, 26, 10, 14, 31, 35, 19, 27]
 
   heap.delete(2)
 
