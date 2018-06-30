@@ -68,6 +68,9 @@ class MaxHeap(object):
 
     return self.arr[parent_index]
 
+  def heap_array(self):
+    return self.arr
+
   def add(self, data):
     self.arr.append(data)
     self.bubble_up_element()
@@ -87,14 +90,29 @@ class MaxHeap(object):
       # Set parent's index as current index.
       index = self.parent_index(index)
 
-  def remove(self, data):
+  def remove(self):
     top = self.arr[0]
     self.arr[0] = self.arr[len(self.arr) - 1]
+    self.arr = self.arr[:-1]
 
     self.sink_down_element(0)
 
+    return top
+
   def sink_down_element(self, index):
-    pass
+    largest = index
+    if self.left(index) and self.left(index) > self.arr[largest]:
+      largest = self.left_index(index)
+
+    if self.right(index) and self.right(index) > self.arr[largest]:
+      largest = self.right_index(index)
+
+    if largest != index:
+      temp = self.arr[index]
+      self.arr[index] = self.arr[largest]
+      self.arr[largest] = temp
+
+      self.sink_down_element(largest)
 
   def get_data_preorder(self, current=None):
     """Returns tree data inorder.
@@ -122,7 +140,13 @@ class MaxHeap(object):
 def create_first_heap_and_assert():
   heap = MaxHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
 
+  assert heap.heap_array() == [44, 42, 35, 33, 31, 19, 27, 10, 26, 14]
   assert heap.get_data_preorder() == [44, 42, 33, 10, 26, 31, 14, 35, 19, 27]
+
+  assert heap.remove() == 44
+
+  assert heap.heap_array() == [42, 33, 35, 26, 31, 19, 27, 10, 14]
+  assert heap.get_data_preorder() == [42, 33, 26, 10, 14, 31, 35, 19, 27]
 
 
 if __name__ == '__main__':
