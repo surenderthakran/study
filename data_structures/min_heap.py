@@ -20,10 +20,10 @@ class MinHeap(object):
       self.arr = []
       return None
 
-    self.arr = []
-    # Add elements to the min heap sequentially.
-    for ele in arr:
-      self.add(ele)
+    # Assign the given array to the heap array.
+    self.arr = arr
+    # Heapify the array in-place.
+    self.heapify()
 
   def heap_array(self):
     return self.arr
@@ -78,6 +78,19 @@ class MinHeap(object):
       return None
 
     return self.arr[parent_index]
+
+  def heapify(self):
+    """Heapifies the current heap array in-place."""
+    # If the array has less than 2 elements, then don't heapify.
+    if len(self.arr) < 2:
+      return
+
+    # Last parent in a complete binary tree is the parent of the last element.
+    last_parent = self.parent_index(len(self.arr) - 1)
+
+    # Sink down all parents starting from the last parent to the root.
+    for parent in range(last_parent, -1, -1):
+      self.sink_down(parent)
 
   def add(self, data):
     # Add element to the end of the array.
@@ -169,7 +182,7 @@ class MinHeap(object):
 if __name__ == '__main__':
   heap = MinHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
 
-  assert heap.heap_array() == [10, 14, 19, 26, 31, 42, 27, 44, 35, 33]
+  assert heap.heap_array() == [10, 14, 19, 26, 31, 42, 27, 44, 33, 35]
 
   assert heap.remove() == 10
 
@@ -188,3 +201,8 @@ if __name__ == '__main__':
   heap.delete(2)
 
   assert heap.heap_array() == [14, 26, 27, 33, 31, 42, 44]
+
+
+  heap.add(15)
+
+  assert heap.heap_array() == [14, 15, 27, 26, 31, 42, 44, 33]
