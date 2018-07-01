@@ -5,6 +5,7 @@
 #### 1. [(Difficulty: 3) Binary To Decimal](algorithms/binary_to_decimal.py)
 #### 2. [(Difficulty: 3) Decimal To Binary](algorithms/decimal_to_binary.py)
 #### 3. [(Difficulty: 3) Binary Search](algorithms/binary_search.py)
+#### 4. [(Difficulty: 3) Heapsort](algorithms/heapsort.py)
 
 ### Data Structures
 
