@@ -19,9 +19,9 @@ class MaxHeap(object):
     if not arr:
       self.arr = []
     else:
-      self.arr = []
-      for element in arr:
-        self.add(element)
+      self.arr = arr
+      # Heapify the array in-place.
+      self.heapify()
 
   def __repr__(self):
     return str(self.arr)
@@ -84,6 +84,18 @@ class MaxHeap(object):
   def heap_array(self):
     """Returns the array representing the heap."""
     return self.arr
+
+  def heapify(self):
+    """Heapifies the array in-place."""
+    if len(self.arr) < 2:
+      return
+
+    # The last parent of the heap would be the parent of the last element.
+    last_parent = self.parent_index(len(self.arr) - 1)
+
+    # Sink down all parent nodes starting from the last parent.
+    for parent in range(last_parent, -1, -1):
+      self.sink_down(parent)
 
   def add(self, data):
     """Adds a new element to the heap.
@@ -197,23 +209,27 @@ def create_heap_and_assert():
   """Creates a max heap and runs assertion checks."""
   heap = MaxHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
 
-  assert heap.heap_array() == [44, 42, 35, 33, 31, 19, 27, 10, 26, 14]
+  assert heap.heap_array() == [44, 35, 42, 33, 31, 19, 27, 10, 26, 14]
 
   assert heap.remove() == 44
 
-  assert heap.heap_array() == [42, 33, 35, 26, 31, 19, 27, 10, 14]
+  assert heap.heap_array() == [42, 35, 27, 33, 31, 19, 14, 10, 26]
 
   heap.delete(9)
 
-  assert heap.heap_array() == [42, 33, 35, 26, 31, 19, 27, 10, 14]
+  assert heap.heap_array() == [42, 35, 27, 33, 31, 19, 14, 10, 26]
 
   heap.delete(2)
 
-  assert heap.heap_array() == [42, 33, 27, 26, 31, 19, 14, 10]
+  assert heap.heap_array() == [42, 35, 26, 33, 31, 19, 14, 10]
 
   heap.delete(7)
 
-  assert heap.heap_array() == [42, 33, 27, 26, 31, 19, 14]
+  assert heap.heap_array() == [42, 35, 26, 33, 31, 19, 14]
+
+  heap.add(40)
+
+  assert heap.heap_array() == [42, 40, 26, 35, 31, 19, 14, 33]
 
 if __name__ == '__main__':
   create_heap_and_assert()
