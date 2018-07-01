@@ -95,9 +95,9 @@ class MaxHeap(object):
       data: (int) Element to be added to the heap.
     """
     self.arr.append(data)
-    self.bubble_up_element()
+    self.bubble_up()
 
-  def bubble_up_element(self, index=None):
+  def bubble_up(self, index=None):
     """Moves an element up the heap levels to its appropriate level.
 
     Args:
@@ -133,11 +133,11 @@ class MaxHeap(object):
     self.arr = self.arr[:-1]
 
     # Sink down the new value at the root to its proper position.
-    self.sink_down_element(0)
+    self.sink_down(0)
 
     return top
 
-  def sink_down_element(self, index):
+  def sink_down(self, index):
     """Sinks down the given element to its proper position in the max heap.
 
     Amongst the parent and its two children, we deduce the largest element,
@@ -165,7 +165,7 @@ class MaxHeap(object):
       self.arr[largest] = temp
 
       # Repeat with the swapped child as parent.
-      self.sink_down_element(largest)
+      self.sink_down(largest)
 
   def delete(self, index):
     """Deletes the given index element from the heap.
@@ -173,6 +173,10 @@ class MaxHeap(object):
     Args:
       index: (int) Index of the element in the heap array.
     """
+    # Return if index is out of bounds.
+    if index < 0 or index > len(self.arr) - 1:
+      return
+
     # If the element to be removed is the last element in the heap, simply
     # remove it from the array.
     if index == len(self.arr) - 1:
@@ -186,10 +190,11 @@ class MaxHeap(object):
     self.arr = self.arr[:-1]
 
     # Sink down the newly replaced element at the index.
-    self.sink_down_element(index)
+    self.sink_down(index)
 
 
 def create_heap_and_assert():
+  """Creates a max heap and runs assertion checks."""
   heap = MaxHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
 
   assert heap.heap_array() == [44, 42, 35, 33, 31, 19, 27, 10, 26, 14]
@@ -198,9 +203,17 @@ def create_heap_and_assert():
 
   assert heap.heap_array() == [42, 33, 35, 26, 31, 19, 27, 10, 14]
 
+  heap.delete(9)
+
+  assert heap.heap_array() == [42, 33, 35, 26, 31, 19, 27, 10, 14]
+
   heap.delete(2)
 
   assert heap.heap_array() == [42, 33, 27, 26, 31, 19, 14, 10]
+
+  heap.delete(7)
+
+  assert heap.heap_array() == [42, 33, 27, 26, 31, 19, 14]
 
 if __name__ == '__main__':
   create_heap_and_assert()
