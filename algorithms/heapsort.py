@@ -34,6 +34,7 @@ def sink_down(arr, index, last_index):
   index.
 
   Args:
+    arr: (list) List in representing the heap.
     index: (int) Index of the element we need to sink down.
     last_index: (int) Index of the last element in the heap.
   """
@@ -95,7 +96,7 @@ def heapsort(arr):
   Returns:
     List of sorted integers.
   """
-  # Intial last index is the last element's position in the array.
+  # Initial last index is the last element's position in the array.
   last_index = len(arr) - 1
 
   # Loop until the last index doesn't reaches the root.

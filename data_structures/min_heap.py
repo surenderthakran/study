@@ -18,7 +18,7 @@ class MinHeap(object):
   def __init__(self, arr=None):
     if not arr:
       self.arr = []
-      return None
+      return
 
     # Assign the given array to the heap array.
     self.arr = arr
@@ -100,6 +100,11 @@ class MinHeap(object):
     self.bubble_up(len(self.arr) - 1)
 
   def bubble_up(self, index):
+    """Bubbles up an element at the given index to its proper position.
+
+    Args:
+      index: (int) Index of the element in the heap to bubble up.
+    """
     # While the index has a parent and is smaller than its parent.
     while self.parent(index) and self.parent(index) > self.arr[index]:
 
@@ -118,7 +123,7 @@ class MinHeap(object):
       (int) Heap's root value if it exists else None.
     """
     # Return if heap has no elements.
-    if len(self.arr) == 0:
+    if not self.arr:
       return None
 
     # Keep root element aside.
@@ -137,6 +142,11 @@ class MinHeap(object):
     return top
 
   def sink_down(self, index):
+    """Sinks down an element at the given index to its proper position.
+
+    Args:
+      index: (int) Index of the element to sink down in the heap.
+    """
     while True:
       smallest = index
 
@@ -201,7 +211,6 @@ if __name__ == '__main__':
   heap.delete(2)
 
   assert heap.heap_array() == [14, 26, 27, 33, 31, 42, 44]
-
 
   heap.add(15)
 
