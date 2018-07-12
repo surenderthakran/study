@@ -1,8 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-"""From a live stream of integers (created by generating random numbers), keep
-track of the median of all the previous elements.
+"""Keep track of the median in a live stream of integers.
 
 Median of a sorted array of elements is the value of the middle
 element of the array if the array has odd number of elements.
@@ -38,5 +37,162 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+
+class Heap(object):
+
+  def __init__(self, arr=None):
+    if not arr:
+      self.arr = []
+      return
+
+    self.arr = arr
+    self.heapify()
+
+  def left_index(self, index):
+    left_index = 2 * index + 1
+    if left_index > len(self.arr) - 1:
+      return -1
+
+    return left_index
+
+  def left(self, index):
+    left_index = self.left_index(index)
+    if left_index == -1:
+      return None
+
+    return self.arr[left_index]
+
+  def right_index(self, index):
+    right_index = 2 * index + 2
+    if right_index > len(self.arr) - 1:
+      return -1
+
+    return right_index
+
+  def right(self, index):
+    right_index = self.right_index(index)
+    if right_index == -1:
+      return None
+
+    return self.arr[right_index]
+
+  def parent_index(self, index):
+    parent_index = (index - 1) // 2
+    if parent_index < 0:
+      return -1
+
+    return parent_index
+
+  def parent(self, index):
+    parent_index = self.parent_index(index)
+    if parent_index == -1:
+      return None
+
+    return self.arr[parent_index]
+
+  def heap_array(self):
+    return self.arr
+
+  def add(self, element):
+    self.arr.append(element)
+
+    self.bubble_up(len(self.arr) - 1)
+
+  def remove(self):
+    if not self.arr:
+      return None
+
+    root = self.arr[0]
+
+    self.arr[0] = self.arr[-1]
+
+    self.arr = self.arr[:-1]
+
+    self.sink_down(0)
+
+    return root
+
+  def heapify(self):
+    if len(self.arr) < 2:
+      return
+
+    last_parent = self.parent_index(len(self.arr) - 1)
+
+    for parent_index in range(last_parent, -1, -1):
+      self.sink_down(parent_index)
+
+  def delete(self, index):
+    if index > len(self.arr) - 1:
+      return
+
+    self.arr[index] = self.arr[-1]
+    self.arr = self.arr[:-1]
+
+    self.sink_down(index)
+
+
+class MinHeap(Heap):
+
+  def __init__(self, arr=None):
+    Heap.__init__(self, arr)
+
+  def bubble_up(self, index):
+    parent = self.parent(index)
+    if parent and self.arr[index] < parent:
+      tmp = parent
+      self.arr[self.parent_index(index)] = self.arr[index]
+      self.arr[index] = tmp
+
+      self.bubble_up(self.parent_index(index))
+
+  def sink_down(self, index):
+    smallest = index
+
+    left = self.left(index)
+    if left and left < self.arr[smallest]:
+      smallest = self.left_index(index)
+
+    right = self.right(index)
+    if right and right < self.arr[smallest]:
+      smallest = self.right_index(index)
+
+    if smallest == index:
+      return
+
+    tmp = self.arr[index]
+    self.arr[index] = self.arr[smallest]
+    self.arr[smallest] = tmp
+
+    self.sink_down(smallest)
+
+
+def test_min_heap():
+  min_heap = MinHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
+
+  assert min_heap.heap_array() == [10, 14, 19, 26, 31, 42, 27, 44, 33, 35]
+
+  assert min_heap.remove() == 10
+
+  assert min_heap.heap_array() == [14, 26, 19, 33, 31, 42, 27, 44, 35]
+
+  # Deleting out of bounds index.
+  min_heap.delete(9)
+
+  assert min_heap.heap_array() == [14, 26, 19, 33, 31, 42, 27, 44, 35]
+
+  # Deleting last index.
+  min_heap.delete(8)
+
+  assert min_heap.heap_array() == [14, 26, 19, 33, 31, 42, 27, 44]
+
+  min_heap.delete(2)
+
+  assert min_heap.heap_array() == [14, 26, 27, 33, 31, 42, 44]
+
+  min_heap.add(15)
+
+  assert min_heap.heap_array() == [14, 15, 27, 26, 31, 42, 44, 33]
+
+
 if __name__ == '__main__':
-  pass
+  test_min_heap()
