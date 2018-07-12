@@ -59,7 +59,6 @@ disable=
     invalid-name,
     protected-access,
     too-few-public-methods,
-    no-member,
 
 
 [REPORTS]
