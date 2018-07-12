@@ -37,8 +37,12 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from abc import ABCMeta
+from abc import abstractmethod
+
 
 class Heap(object):
+  __metaclass__ = ABCMeta
 
   def __init__(self, arr=None):
     if not arr:
@@ -98,6 +102,10 @@ class Heap(object):
 
     self.bubble_up(len(self.arr) - 1)
 
+  @abstractmethod
+  def bubble_up(self, index):
+    pass
+
   def remove(self):
     if not self.arr:
       return None
@@ -111,6 +119,10 @@ class Heap(object):
     self.sink_down(0)
 
     return root
+
+  @abstractmethod
+  def sink_down(self, index):
+    pass
 
   def heapify(self):
     if len(self.arr) < 2:
