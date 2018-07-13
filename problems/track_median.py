@@ -42,6 +42,7 @@ from abc import abstractmethod
 
 
 class Heap(object):
+  """Abstract class to implement heaps."""
   __metaclass__ = ABCMeta
 
   def __init__(self, arr=None):
@@ -98,8 +99,11 @@ class Heap(object):
     return self.arr
 
   def add(self, element):
+    """Adds new element to the heap."""
+    # Add element to the end of the heap.
     self.arr.append(element)
 
+    # Bubble up the element to its proper position.
     self.bubble_up(len(self.arr) - 1)
 
   @abstractmethod
@@ -107,15 +111,21 @@ class Heap(object):
     pass
 
   def remove(self):
+    """Removes and returns the root element in the heap."""
+    # Return None if the heap is empty.
     if not self.arr:
       return None
 
+    # Set aside root element in the heap.
     root = self.arr[0]
 
+    # replace root element with the last element.
     self.arr[0] = self.arr[-1]
 
+    # Remove last element from the heap.
     self.arr = self.arr[:-1]
 
+    # Sink down the new element at the root to its proper position.
     self.sink_down(0)
 
     return root
@@ -125,60 +135,90 @@ class Heap(object):
     pass
 
   def heapify(self):
+    """Heapifies the complete binary tree represented by a list."""
+    # If the tree has 0 or 1 element, there is no need to heapify it.
     if len(self.arr) < 2:
       return
 
+    # We start from the last parent of the tree.
+    # Last parent of the tree is the parent of the last element.
     last_parent = self.parent_index(len(self.arr) - 1)
 
+    # Iterate from the last parent's position to the root.
     for parent_index in range(last_parent, -1, -1):
+      # Sink down every element encountered to its proper position.
       self.sink_down(parent_index)
 
   def delete(self, index):
+    """Deletes the element at the given index from the heap."""
+    # Return if the index is out of bounds.
     if index > len(self.arr) - 1:
       return
 
+    # Replace element at the given index with the last element.
     self.arr[index] = self.arr[-1]
+
+    # Remove last element from the heap.
     self.arr = self.arr[:-1]
 
+    # Sink down the new element at the index to its proper position.
     self.sink_down(index)
 
 
 class MinHeap(Heap):
+  """Class to implement a Min Heap."""
 
   def __init__(self, arr=None):
     Heap.__init__(self, arr)
 
   def bubble_up(self, index):
+    """Bubble up the element at the given index to its proper position."""
+    # Decude parent of the element at the given index.
     parent = self.parent(index)
+
+    # If parent is larger than the element.
     if parent and self.arr[index] < parent:
+      # Swap element with its parent.
       tmp = parent
       self.arr[self.parent_index(index)] = self.arr[index]
       self.arr[index] = tmp
 
+      # Bubble up the element now at its parent's position.
       self.bubble_up(self.parent_index(index))
 
   def sink_down(self, index):
+    """Sinks down the element at the given index to its proper position."""
+    # Begin by assuming the index holds the smallest element amongst its
+    # children.
     smallest = index
 
+    # If left child exists and is smaller than the current smallest, make it
+    # the new smallest.
     left = self.left(index)
     if left and left < self.arr[smallest]:
       smallest = self.left_index(index)
 
+    # If right child exists and is smaller than the current smallest, amke it
+    # the new smallest.
     right = self.right(index)
     if right and right < self.arr[smallest]:
       smallest = self.right_index(index)
 
+    # Return if index still holds the smallest element.
     if smallest == index:
       return
 
+    # Swap element at index with the smallest element.
     tmp = self.arr[index]
     self.arr[index] = self.arr[smallest]
     self.arr[smallest] = tmp
 
+    # Sink down the element from its new position.
     self.sink_down(smallest)
 
 
 def test_min_heap():
+  """Function to check Min Heap implementation."""
   min_heap = MinHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
 
   assert min_heap.heap_array() == [10, 14, 19, 26, 31, 42, 27, 44, 33, 35]
