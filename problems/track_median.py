@@ -130,6 +130,15 @@ class Heap(object):
 
     return root
 
+  def root(self):
+    if not self.arr:
+      return None
+
+    return self.arr[0]
+
+  def length(self):
+    return len(self.arr)
+
   @abstractmethod
   def sink_down(self, index):
     pass
@@ -322,6 +331,69 @@ def test_max_heap():
   assert max_heap.heap_array() == [42, 40, 26, 35, 31, 19, 14, 33]
 
 
+def get_median(left_heap, right_heap):
+  if left_heap.length() == right_heap.length():
+    return (left_heap.root() + right_heap.root()) / 2
+
+  if left_heap.length() > right_heap.length():
+    return left_heap.root()
+
+  return right_heap.root()
+
+
+def track_median(element, left_heap, right_heap, median):
+  """Returns new median for every new integer element."""
+  # If no median already exists.
+  if not median:
+    # Add new element to the left heap.
+    left_heap.add(element)
+    # Calculate and return median.
+    return get_median(left_heap, right_heap)
+
+  if element < median:
+    # Add element to the left heap if it is smaller than the existing median.
+    left_heap.add(element)
+  else:
+    # Add element to the right heap if it is larger than the existing median.
+    right_heap.add(element)
+
+  # Transfer element between left and right heaps till no heap as more than one
+  # element than the other element.
+  while abs(left_heap.length() - right_heap.length()) > 1:
+    if left_heap.length() > right_heap.length():
+      # If left heap has more elements, remove one from left and add to right.
+      tmp = left_heap.remove()
+      right_heap.add(tmp)
+    else:
+      # If right heap has more elements, remove one from right and add to left.
+      tmp = right_heap.remove()
+      left_heap.add(tmp)
+
+  # Calculate and return median.
+  return get_median(left_heap, right_heap)
+
+
+def test_track_median():
+  arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+  # Left heap is a Max Heap.
+  left_heap = MaxHeap()
+
+  # Right heap is a Min Heap.
+  right_heap = MinHeap()
+
+  # Initial median value is None.
+  median = None
+
+  for element in arr:
+    median = track_median(element, left_heap, right_heap, median)
+    print(median)
+
+  assert median == 10.5
+
+
 if __name__ == '__main__':
   test_min_heap()
   test_max_heap()
+
+  test_track_median()
