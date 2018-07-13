@@ -22,8 +22,8 @@
 #### 2. [(Difficulty: 2) Verify if a ransom note is from a given magazine page.](problems/ransom_note.py)
 #### 3. [(Difficulty: 2) Calculate overlap area of two rectangles.](problems/rectangle_overlap_area.py)
 #### 4. [(Difficulty: 3) Find the smallest element in a rotated sorted array.](problems/minimum_rotated_sorted.py)
-#### 5. [(Difficulty: 3) Find all possible permutations of a given string.](string_permutations.py)
-#### 6. [(Difficulty: 4) Keep track of the median in a live array of integers.](track_median.py)
+#### 5. [(Difficulty: 3) Find all possible permutations of a given string.](problems/string_permutations.py)
+#### 6. [(Difficulty: 4) Keep track of the median in a live array of integers.](problems/track_median.py)
 
 ### System Design
 
