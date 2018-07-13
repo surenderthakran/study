@@ -217,6 +217,55 @@ class MinHeap(Heap):
     self.sink_down(smallest)
 
 
+class MaxHeap(Heap):
+  """Class to implement Max Heap."""
+
+  def __init__(self, arr=None):
+    Heap.__init__(self, arr)
+
+  def bubble_up(self, index):
+    """Bubble up the element at the given index to its proper position."""
+    # While the index has a parent and is larger than its parent.
+    while self.parent(index) and self.arr[index] > self.parent(index):
+      # Swap element with its parent.
+      tmp = self.parent(index)
+      self.arr[self.parent_index(index)] = self.arr[index]
+      self.arr[index] = tmp
+
+      # Set the element now at its parent's position for bubble up.
+      index = self.parent_index(index)
+
+  def sink_down(self, index):
+    """Sinks down the element at the given index to its proper position."""
+    # Let us start by assuming that the current index holds the largest element
+    # amongst its children.
+    largest = index
+
+    # If the current index has a left child which is larger than the element at
+    # the current index, then its index becomes the largest.
+    left = self.left(index)
+    if left and left > self.arr[largest]:
+      largest = self.left_index(index)
+
+    # If the current index has a right child which is larger than the current
+    # index's element, then its index becomes that largest.
+    right = self.right(index)
+    if right and right > self.arr[largest]:
+      largest = self.right_index(index)
+
+    # Return if index still holds the largest element.
+    if largest == index:
+      return
+
+    # Swap element at the index with the largest element.
+    tmp = self.arr[largest]
+    self.arr[largest] = self.arr[index]
+    self.arr[index] = tmp
+
+    # Sink down the element now at the new position.
+    self.sink_down(largest)
+
+
 def test_min_heap():
   """Function to check Min Heap implementation."""
   min_heap = MinHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
@@ -246,5 +295,33 @@ def test_min_heap():
   assert min_heap.heap_array() == [14, 15, 27, 26, 31, 42, 44, 33]
 
 
+def test_max_heap():
+  """Function to check Max Heap implementation."""
+  max_heap = MaxHeap([35, 33, 42, 10, 14, 19, 27, 44, 26, 31])
+
+  assert max_heap.heap_array() == [44, 35, 42, 33, 31, 19, 27, 10, 26, 14]
+
+  assert max_heap.remove() == 44
+
+  assert max_heap.heap_array() == [42, 35, 27, 33, 31, 19, 14, 10, 26]
+
+  max_heap.delete(9)
+
+  assert max_heap.heap_array() == [42, 35, 27, 33, 31, 19, 14, 10, 26]
+
+  max_heap.delete(2)
+
+  assert max_heap.heap_array() == [42, 35, 26, 33, 31, 19, 14, 10]
+
+  max_heap.delete(7)
+
+  assert max_heap.heap_array() == [42, 35, 26, 33, 31, 19, 14]
+
+  max_heap.add(40)
+
+  assert max_heap.heap_array() == [42, 40, 26, 35, 31, 19, 14, 33]
+
+
 if __name__ == '__main__':
   test_min_heap()
+  test_max_heap()
