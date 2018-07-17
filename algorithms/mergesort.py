@@ -3,6 +3,14 @@
 
 """Implementing merge sort.
 
+Merge sorts implements in O(n logn) time complexity in all three cases.
+
+For an input array of size n, if we keep splitting it in half until we get
+sub-arrays of size 1, we will be splitting logn times.
+At each split level we merge/combine back ALL the subarrays, so the combined
+merging time at each level is O(n).
+Hence the totla time complexity of merge sort is O(n logn).
+
 Usage:
 $ python mergesort.py
 """
@@ -14,6 +22,8 @@ from __future__ import print_function
 
 def merge(arr, l, m, r):
   """Merges two sorted portions of a list subset to form a single subset.
+
+  Merging of two arrays with the below method takes O(n) time and O(n) space.
 
   Args:
     arr: (list) List of integers.
@@ -53,6 +63,9 @@ def merge(arr, l, m, r):
 
 def merge_sort(arr, l=None, r=None):
   """Recursively merge sorts the given array in-place.
+
+  Splitting an array in half takes constant time O(1).
+  But the number of splits needed until we reach sub-array size 1 is n*logn.
 
   Args:
     arr: (list) List of integers.
