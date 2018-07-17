@@ -7,6 +7,7 @@
 #### 3. [(Difficulty: 3) Binary Search.](algorithms/binary_search.py) Time Complexity: Best: O(1), Worst: O(logn)
 #### 4. [(Difficulty: 3) Heapsort](algorithms/heapsort.py)
 #### 5. [(Difficulty: 3) Mergesort.](algorithms/mergesort.py) Time Complexity: Best: O(n logn), Average: O(n logn), Worst: O(n logn)
+#### 6. [(Difficulty: 3) Quicksort.](algorithms/quicksort.py) Time Complexity: Best: O(n logn), Average: O(n logn), Worst: O(n^2)
 
 ### Data Structures
 
