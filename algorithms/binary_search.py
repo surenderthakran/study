@@ -3,6 +3,14 @@
 
 """Find position of an element in a sorted array using binary search.
 
+Binary search operates in the time complexity O(logn).
+
+After each guess the array is split into two equal arrays. This splitting takes
+place until we are left with only one element.
+For an array of length n, in worst case we will need log n to base 2 splits.
+Everything else is constant time in binary search.
+Hence, the time complexity is O(logn).
+
 Usage:
 $ python binary_search.py
 """
@@ -28,7 +36,7 @@ def binary_search_loop(arr, elem):
   high = len(arr) - 1
 
   while high >= low:
-    mid = low + (high - low)//2
+    mid = (low + high) // 2
     if elem == arr[mid]:
       return mid
     elif elem < arr[mid]:
