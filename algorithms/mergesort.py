@@ -12,71 +12,75 @@ from __future__ import division
 from __future__ import print_function
 
 
-def merge(arr1, arr2):
-  """Merges two sorted arrays to return one single sorted array.
-
-  Args:
-    arr1: (list) Sorted list of integers.
-    arr2: (list) Sorted list of integers.
-
-  Returns:
-    Sorted list of integers.
-  """
-  i = 0
-  j = 0
-  result = []
-
-  # Merge two arrays by picking the smallest element from the head of the two
-  # arrays and writing it in the new array.
-  # Loop until atleast one array has been completely consumed.
-  while i <= len(arr1) - 1 and j <= len(arr2) - 1:
-    # If element at arr1's head is smaller than the element at arr2's head,
-    # write arr1's head to the new array.
-    if arr1[i] < arr2[j]:
-      result.append(arr1[i])
-      i += 1
-    else:
-      # Else write arr2's head to the new array.
-      result.append(arr2[j])
-      j += 1
-
-  # Copy all the remaining element from arr1 or arr2 to the new array.
-  if i <= len(arr1) - 1:
-    result += arr1[i:]
-  else:
-    result += arr2[j:]
-
-  return result
-
-
-def merge_sort(arr):
-  """Recursively sorts the given array.
+def merge(arr, l, m, r):
+  """Merges two sorted portions of a list subset to form a single subset.
 
   Args:
     arr: (list) List of integers.
-
-  Returns:
-    Sorted list of integers.
+    l: (int) Starting index of the list's sorted left portion.
+    m: (int) Index separating the left and right sorted portions of the list.
+    r: (int) Ending index of the list's sorted right portion.
   """
-  # Return list of its length is 1.
-  if len(arr) == 1:
-    return arr
+  i = l
+  j = m + 1
+  result = []
+
+  # Merge two sorted portions by picking the smallest element from the head of
+  # the two portions and writing it in the new array.
+  # Loop until atleast one portion has been completely consumed.
+  while i <= m and j <= r:
+    # If element at left portion's current head is smaller than the element at
+    # right portion's current head, write left portion's head to the new array.
+    if arr[i] < arr[j]:
+      result.append(arr[i])
+      i += 1
+    else:
+      # Else write right portion's head to the new array.
+      result.append(arr[j])
+      j += 1
+
+  # Copy all the remaining element from left or right portion to the new array.
+  if i <= m:
+    result += arr[i:m+1]
   else:
+    result += arr[j:r+1]
+
+  # Write the new sorted array's elements over the element of the left and
+  # right portions.
+  for index, value in enumerate(result):
+    arr[l + index] = value
+
+
+def merge_sort(arr, l=None, r=None):
+  """Recursively merge sorts the given array in-place.
+
+  Args:
+    arr: (list) List of integers.
+    l: (int) Starting index of the array subset to sort.
+    r: (int) Ending index if the array subset to sort.
+  """
+  # If l and r are None, it means we need to sort the whole array.
+  if l is None and r is None:
     l = 0
     r = len(arr) - 1
 
-    # Calculate middle point in the array.
+  # Sort only if l is smaller than r. Don's sort if l == r since we cannot sort
+  # a single element.
+  if l < r:
+    # Calculate mid point of the array subset.
     m = (l + r) // 2
 
-    # Recursively sort the left part of the array.
-    left = merge_sort(arr[l:m+1])
+    # Recursively sort the left portion of the array subset,
+    merge_sort(arr, l, m)
 
-    # Recursively sort the right part of the array.
-    right = merge_sort(arr[m+1:r+1])
+    # recursively sort the right portion of the array subset.
+    merge_sort(arr, m+1, r)
 
-    # Merge and return the sorted array.
-    return merge(left, right)
+    # Merge the left and right portions to form a single sorted array subset.
+    merge(arr, l, m, r)
 
 
 if __name__ == '__main__':
-  assert merge_sort([9, 1, 8, 2, 7, 3, 6, 4, 5]) == [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  array = [9, 1, 8, 2, 7, 3, 6, 4, 5]
+  merge_sort(array)
+  assert array == [1, 2, 3, 4, 5, 6, 7, 8, 9]
