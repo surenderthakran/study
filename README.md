@@ -5,9 +5,10 @@
 #### 1. [(Difficulty: 3) Binary To Decimal](algorithms/binary_to_decimal.py)
 #### 2. [(Difficulty: 3) Decimal To Binary](algorithms/decimal_to_binary.py)
 #### 3. [(Difficulty: 3) Binary Search.](algorithms/binary_search.py) Time Complexity: Best: O(1), Worst: O(logn)
-#### 4. [(Difficulty: 3) Heapsort](algorithms/heapsort.py)
-#### 5. [(Difficulty: 3) Mergesort.](algorithms/mergesort.py) Time Complexity: Best: O(n logn), Average: O(n logn), Worst: O(n logn)
-#### 6. [(Difficulty: 3) Quicksort.](algorithms/quicksort.py) Time Complexity: Best: O(n logn), Average: O(n logn), Worst: O(n^2)
+#### 4. [(Difficulty: 2) Selection Sort.](algorithms/selection_sort.py) Time Complexity: Best: O(n^2), Average: O(n^2), Worst: O(n^2)
+#### 5. [(Difficulty: 3) Heap Sort](algorithms/heapsort.py)
+#### 6. [(Difficulty: 3) Merge Sort.](algorithms/mergesort.py) Time Complexity: Best: O(n logn), Average: O(n logn), Worst: O(n logn)
+#### 7. [(Difficulty: 3) Quick Sort.](algorithms/quicksort.py) Time Complexity: Best: O(n logn), Average: O(n logn), Worst: O(n^2)
 
 ### Data Structures
 
