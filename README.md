@@ -20,6 +20,7 @@
 
 ### Problems
 
+#### 1. [(Difficulty: 2) Implement an optimal power function.](problems/power.py) Time Complexity: O(logn)
 #### 1. [(Difficulty: 2) Calculate angle between the hour and minute hand of a clock for a given time.](problems/clock_angle.py)
 #### 2. [(Difficulty: 2) Verify if a ransom note is from a given magazine page.](problems/ransom_note.py)
 #### 3. [(Difficulty: 2) Check if all the characters in a string are unique without using any additional data structures.](problems/unique_characters_check.py)
