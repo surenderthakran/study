@@ -59,6 +59,8 @@ disable=
     invalid-name,
     protected-access,
     too-few-public-methods,
+    consider-using-enumerate,
+    no-self-use,
 
 
 [REPORTS]
