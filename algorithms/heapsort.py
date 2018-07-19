@@ -50,7 +50,7 @@ def sink_down(arr, index, last_index):
     right_index = 2 * index + 2
     # If the right index is not beyond the last index and value at right index
     # is greater than the value at current largest index, set right as largest.
-    if right_index < last_index and arr[right_index] > arr[largest_index]:
+    if right_index <= last_index and arr[right_index] > arr[largest_index]:
       largest_index = right_index
 
     # If the current index remains the largest that means the element is
@@ -169,5 +169,4 @@ if __name__ == '__main__':
 
   for test_case in test_cases:
     print(test_case)
-    print(heapsort(test_case['input']))
     assert heapsort(test_case['input']) == test_case['output']
