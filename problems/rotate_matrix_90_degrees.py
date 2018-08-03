@@ -9,7 +9,24 @@ from __future__ import print_function
 def rotate(matrix):
   dimension = len(matrix[0])
   for layer in range(dimension//2):
-    print('rotating layer:', layer)
+    first = layer
+    last = dimension - 1 - layer
+
+
+    for i in range(first, last):
+      top_element = matrix[first][i]
+
+      # left to top.
+      matrix[first][i] = matrix[first + last - i][first]
+
+      # bottom to left.
+      matrix[first + last - i][first] = matrix[last][first + last - i]
+
+      # right to bottom.
+      matrix[last][first + last - i] = matrix[i][last]
+
+      # top to right.
+      matrix[i][last] = top_element
 
 
 if __name__ == '__main__':
@@ -27,4 +44,7 @@ if __name__ == '__main__':
       [33, 28, 23, 18, 13],
       [34, 29, 24, 19, 14],
   ]
-  assert rotate(matrix) == want
+
+  rotate(matrix)
+
+  assert matrix == want
