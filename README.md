@@ -31,6 +31,7 @@
 #### 6. [(Difficulty: 3) Find the smallest element in a rotated sorted array.](problems/minimum_rotated_sorted.py)
 #### 7. [(Difficulty: 3) Find all possible permutations of a given string.](problems/string_permutations.py)
 #### 8. [(Difficulty: 4) Keep track of the median in a live array of integers.](problems/track_median.py)
+#### 9. [(Difficulty: 4) Rotate a given NxN matrix 90 degrees clockwise.](problems/rotate_matrix_90_degrees.py) Time Complexity: O(n^2)
 
 ### System Design
 
