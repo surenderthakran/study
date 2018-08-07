@@ -29,11 +29,12 @@
 #### 3. [(Difficulty: 2) Check if all the characters in a string are unique without using any additional data structures.](problems/unique_characters_check.py)
 #### 4. [(Difficulty: 2) Check if two given strings are anagrams of each other.](problems/strings_anagram.py) Time Complexity: O(n)
 #### 5. [(Difficulty: 2) Check if two given strings are rotation of each other with a single substring check.](problems/is_rotation.py)
-#### 6. [(Difficulty: 3) Calculate overlap area of two rectangles.](problems/rectangle_overlap_area.py)
-#### 7. [(Difficulty: 3) Find the smallest element in a rotated sorted array.](problems/minimum_rotated_sorted.py)
-#### 8. [(Difficulty: 3) Find all possible permutations of a given string.](problems/string_permutations.py)
-#### 9. [(Difficulty: 4) Keep track of the median in a live array of integers.](problems/track_median.py)
-#### 10. [(Difficulty: 4) Rotate a given NxN matrix 90 degrees clockwise.](problems/rotate_matrix_90_degrees.py) Time Complexity: O(n^2)
+#### 6. [(Difficulty: 2) Find the nth last element in a singly linked list.](problems/nth_last_linked_list.py)
+#### 7. [(Difficulty: 3) Calculate overlap area of two rectangles.](problems/rectangle_overlap_area.py)
+#### 8. [(Difficulty: 3) Find the smallest element in a rotated sorted array.](problems/minimum_rotated_sorted.py)
+#### 9. [(Difficulty: 3) Find all possible permutations of a given string.](problems/string_permutations.py)
+#### 10. [(Difficulty: 4) Keep track of the median in a live array of integers.](problems/track_median.py)
+#### 11. [(Difficulty: 4) Rotate a given NxN matrix 90 degrees clockwise.](problems/rotate_matrix_90_degrees.py) Time Complexity: O(n^2)
 
 ### System Design
 

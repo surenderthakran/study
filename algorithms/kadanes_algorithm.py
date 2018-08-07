@@ -36,6 +36,7 @@ from __future__ import print_function
 
 
 def kadane(arr):
+  """Returns the largest sum of consecutive elements in the array."""
   length = len(arr)
   # set global and current highest to first element's value.
   global_highest = arr[0]
