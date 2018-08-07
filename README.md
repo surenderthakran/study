@@ -10,6 +10,7 @@
 #### 6. [(Difficulty: 3) Heap Sort](algorithms/heapsort.py)
 #### 7. [(Difficulty: 3) Merge Sort.](algorithms/mergesort.py) Time Complexity: Best: O(n logn), Average: O(n logn), Worst: O(n logn)
 #### 8. [(Difficulty: 3) Quick Sort.](algorithms/quicksort.py) Time Complexity: Best: O(n logn), Average: O(n logn), Worst: O(n^2)
+#### 9. [(Difficulty: 4) Kadane's Algorithm.](algorithms/kadanes_algorithm.py) Time Complexity: O(n)
 
 ### Data Structures
 
