@@ -16,6 +16,7 @@ from __future__ import print_function
 
 class Node(object):
   """Node implements a node in a single linked list."""
+
   def __init__(self, data):
     self.data = data
     self.next = None
