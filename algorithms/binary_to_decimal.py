@@ -141,7 +141,6 @@ if __name__ == '__main__':
 
   arg = sys.argv[1]
 
-  # Validate if input is a real number and convert it to float.
-  arg = float(arg)
-
-  print(binary_to_decimal(arg))
+  # Validate if input is a real number, convert it to float and convert to
+  # decimal.
+  print(binary_to_decimal(float(arg)))
