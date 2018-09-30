@@ -29,6 +29,7 @@
 #### 3. [(Difficulty: 2) Check if all the characters in a string are unique without using any additional data structures.](problems/unique_characters_check.py)
 #### 4. [(Difficulty: 2) Check if two given strings are anagrams of each other.](problems/strings_anagram.py) Time Complexity: O(n)
 #### 5. [(Difficulty: 2) Check if two given strings are rotation of each other with a single substring check.](problems/is_rotation.py)
+#### 6. [(Difficulty: 2) Compare two lists of keypresses for equality.](problems/compare_keypress_lists.py)
 #### 6. [(Difficulty: 2) Add two numbers represented in linked lists with one digit per node.](problems/add_linked_list_numbers.py)
 #### 7. [(Difficulty: 2) Find the nth last element in a singly linked list.](problems/nth_last_linked_list.py)
 #### 8. [(Difficulty: 3) Calculate overlap area of two rectangles.](problems/rectangle_overlap_area.py)
