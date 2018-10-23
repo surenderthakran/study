@@ -34,11 +34,12 @@
 #### 7. [(Difficulty: 2) Find the nth last element in a singly linked list.](problems/nth_last_linked_list.py)
 #### 8. [(Difficulty: 3) Calculate overlap area of two rectangles.](problems/rectangle_overlap_area.py)
 #### 9. [(Difficulty: 3) Highlight nearest hyperlink to the mouse cursor.](problems/highlight_nearest_hyperlink)
-#### 10. [(Difficulty: 3) Find the smallest element in a rotated sorted array.](problems/minimum_rotated_sorted.py)
-#### 11. [(Difficulty: 3) Find all possible permutations of a given string.](problems/string_permutations.py)
-#### 12. [(Difficulty: 4) Keep track of the median in a live array of integers.](problems/track_median.py)
-#### 13. [(Difficulty: 4) Rotate a given NxN matrix 90 degrees clockwise.](problems/rotate_matrix_90_degrees.py) Time Complexity: O(n^2)
-#### 14. [(Difficulty: 4) Find the starting node in a circular linked list.](problems/starting_point_circular_linked_list.py)
+#### 10. [(Difficulty: 3) Traverse a 2D matrix in zigzag order.](problems/2d_zigzag_scan.py)
+#### 11. [(Difficulty: 3) Find the smallest element in a rotated sorted array.](problems/minimum_rotated_sorted.py)
+#### 12. [(Difficulty: 3) Find all possible permutations of a given string.](problems/string_permutations.py)
+#### 13. [(Difficulty: 4) Keep track of the median in a live array of integers.](problems/track_median.py)
+#### 14. [(Difficulty: 4) Rotate a given NxN matrix 90 degrees clockwise.](problems/rotate_matrix_90_degrees.py) Time Complexity: O(n^2)
+#### 15. [(Difficulty: 4) Find the starting node in a circular linked list.](problems/starting_point_circular_linked_list.py)
 
 ### System Design
 
