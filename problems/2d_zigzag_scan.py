@@ -1,4 +1,4 @@
-#!usr/bin/env python2
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 """Given a 2D matrix, traverse the matrix in a zigzag manner.
