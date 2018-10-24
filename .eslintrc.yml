@@ -6,7 +6,10 @@ env:
  browser: true
  es6: true
 rules:
- eqeqeq: 1
+ eqeqeq: warn
+ indent:
+  - error
+  - 2
  require-jsdoc:
   - warn
   - require:
@@ -15,11 +18,11 @@ rules:
       ClassDeclaration: true
       ArrowFunctionExpression: true
       FunctionExpression: true
- no-console: 0
- no-constant-condition: 1
- no-unreachable: 1
- no-unused-vars: 1
- semi: 2
+ no-console: off
+ no-constant-condition: warn
+ no-unreachable: warn
+ no-unused-vars: warn
+ semi: error
  valid-jsdoc:
   - error
   - requireReturn: false
