@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * Highlight nearest hyperlink to the mouse cursor.
+ */
 
 (() => {
   /**
@@ -25,6 +28,13 @@
    * Class representing an Euclidean point.
    */
   class Point {
+
+    /**
+     * Constructor for class Point.
+     *
+     * @param {number} x x-coordinate of mouse's location.
+     * @param {number} y y-coordinate of mouse's location.
+     */
     constructor (x, y) {
       this.x = x;
       this.y = y;
@@ -35,6 +45,14 @@
    * Class representing an Euclidean rectangle.
    */
   class Rectangle {
+
+    /**
+     * Constructor for class Rectangle.
+     *
+     * @param {Point} topLeft Top-Left corner of the rectangle.
+     * @param {number} height of the rectangle.
+     * @param {number} width of the rectangle..
+     */
     constructor(topLeft, height, width) {
       this.topLeft = topLeft;
       this.height = height;
@@ -80,9 +98,9 @@
 
   /**
    * Function to find nearest hyperlink to the given point.
-   * @param {!Point} point
+   * @param {!Point} point Current mouse cursor location.
    *
-   * @return {?HTMLAnchorElement}
+   * @return {?HTMLAnchorElement} Hyperlink nearest to the mouse cursor.
    */
   function findNearestHyperlink(point) {
     let shortestDistance;
@@ -121,8 +139,8 @@
    *  -----+--------+-----
    *   VII |  VIII  | IX
    *
-   * @param {!Rectangle} rectangle
-   * @param {!Point} point
+   * @param {!Rectangle} rectangle Rectangle depicting bounds of a hyperlink.
+   * @param {!Point} point Currnt mouse cursor location.
    *
    * @return {number}
    */
@@ -167,8 +185,8 @@
 
   /**
    * Function to find distance between two points.
-   * @param {!Point} p1
-   * @param {!Point} p2
+   * @param {!Point} p1 Euclidean point.
+   * @param {!Point} p2 Euclidean point.
    *
    * @return {number}
    */
@@ -178,7 +196,7 @@
 
   /**
    * Function to highlight and unhighlight hyperlinks.
-   * @param {!HTMLAnchorElement} hyperlink
+   * @param {!HTMLAnchorElement} hyperlink Hyperlink to highlight.
    */
   function highlightHyperlink(hyperlink) {
     if (highlightedHyperlink) {
