@@ -8,7 +8,7 @@ env:
 rules:
  eqeqeq: 1
  require-jsdoc:
-  - 2
+  - warn
   - require:
       FunctionDeclaration: true
       MethodDefinition: true
