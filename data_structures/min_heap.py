@@ -81,16 +81,16 @@ class MinHeap(object):
 
   def heapify(self):
     """Heapifies the current heap array in-place."""
-    # If the array has less than 2 elements, then don't heapify.
+    # If the array has only 1 element, then don't heapify.
     if len(self.arr) < 2:
       return
 
     # Last parent in a complete binary tree is the parent of the last element.
-    last_parent = self.parent_index(len(self.arr) - 1)
+    last_parent_index = self.parent_index(len(self.arr) - 1)
 
     # Sink down all parents starting from the last parent to the root.
-    for parent in range(last_parent, -1, -1):
-      self.sink_down(parent)
+    for parent_index in range(last_parent_index, -1, -1):
+      self.sink_down(parent_index)
 
   def add(self, data):
     # Add element to the end of the array.
@@ -148,22 +148,22 @@ class MinHeap(object):
       index: (int) Index of the element to sink down in the heap.
     """
     while True:
-      smallest = index
+      smallest_index = index
 
-      if self.left(index) and self.left(index) < self.arr[smallest]:
-        smallest = self.left_index(index)
+      if self.left(index) and self.left(index) < self.arr[smallest_index]:
+        smallest_index = self.left_index(index)
 
-      if self.right(index) and self.right(index) < self.arr[smallest]:
-        smallest = self.right_index(index)
+      if self.right(index) and self.right(index) < self.arr[smallest_index]:
+        smallest_index = self.right_index(index)
 
-      if smallest == index:
+      if smallest_index == index:
         break
 
       temp = self.arr[index]
-      self.arr[index] = self.arr[smallest]
-      self.arr[smallest] = temp
+      self.arr[index] = self.arr[smallest_index]
+      self.arr[smallest_index] = temp
 
-      index = smallest
+      index = smallest_index
 
   def delete(self, index):
     """Deletes element from the given index and re-heapifies the heap.
@@ -172,7 +172,7 @@ class MinHeap(object):
       index: (int)  Index of the element to delete from the heap's array.
     """
     # Return if index is out of bounds.
-    if index > len(self.arr) - 1:
+    if index > len(self.arr) - 1 or index < 0:
       return
 
     # Simply remove last element if index is the last element in the array.
