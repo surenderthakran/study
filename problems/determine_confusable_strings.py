@@ -1,10 +1,10 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-"""Determine if two given strings are confusables.
+"""Given pairs of confusable chars, determine if two strings are confusables.
+ex: (I, l), (c, e), (b, d), (g, q) etc.
 
 Two characters are called confusables if they look similar to each other.
-ex: (I, l), (c, e), (b, d), (g, q) etc.
 
 Two strings are considered confusable if they:
 - are of equal length
